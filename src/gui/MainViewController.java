@@ -32,9 +32,9 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemDepartmentAction() {
-		System.out.println("onMenuItemDepartmentAction");
+		loadView("/gui/DepartmentList.fxml");
 	}
-
+	
 	@FXML
 	public void onMenuItemAboutAction() {
 		System.out.println("onMenuItemAboutAction");
@@ -60,7 +60,7 @@ public class MainViewController implements Initializable {
 			Scene mainScene = Main.getMainScene();
 			// guarda o Vbox da tela principal
 			VBox mainVBox = (VBox) (((ScrollPane) mainScene.getRoot()).getContent());
-			// guarda os filhos da Vbox principal
+			// guarda os filhos da Vbox principal no caso o primeiro que é a barra superior
 			Node mainMenu = mainVBox.getChildren().get(0);
 			// limpa todos os childrens da tela
 			mainVBox.getChildren().clear();
