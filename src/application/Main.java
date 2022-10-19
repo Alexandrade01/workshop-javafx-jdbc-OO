@@ -13,7 +13,9 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
+	private static Scene mainScene;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -23,14 +25,21 @@ public class Main extends Application {
 			//configurando o scrollpane para ficar do tamanho da tela
 			scrollPane.setFitToHeight(true);
 			scrollPane.setFitToWidth(true);
+
 			
-			Scene mainScene = new Scene(scrollPane);
+			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Meu primeiro projeto Desktop");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Scene getMainScene() {
+		
+		return mainScene;
+		
 	}
 
 }
