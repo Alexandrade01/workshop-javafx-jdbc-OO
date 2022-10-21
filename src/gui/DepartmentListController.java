@@ -48,8 +48,6 @@ public class DepartmentListController implements Initializable {
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Department obj  = new Department();
-//		obj.setId(10);
-//		obj.setName("Fitness");
 		createDialogForm(obj,"/gui/DepartmentForm.fxml",parentStage);
 		System.out.println("onBtNewAction");
 	}
@@ -100,6 +98,7 @@ public class DepartmentListController implements Initializable {
 			//populando o form department com o obj Department
 			DepartmentFormController controller = loader.getController();
 			controller.setDepartment(obj);
+			controller.setDepartmentService(new DepartmentService());
 			controller.updateFormData();
 			
 			//quando quero abrir uma janela nova preciso instanciar um novo stage
