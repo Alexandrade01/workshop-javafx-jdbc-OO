@@ -53,6 +53,8 @@ public class MainViewController implements Initializable {
 
 	// synchronized garante que todos os processos da tela nao vao ser interrompidos
 	// na troca de telas
+	
+	//colocamos um segundo parametro no padrao lambda e generics para poder criar diferentes aberturas na mesma view loadView
 	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction ) {
 
 		try {
