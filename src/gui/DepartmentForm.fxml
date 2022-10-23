@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="155.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DepartmentFormController">
+<AnchorPane prefHeight="155.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DepartmentFormController">
    <children>
-      <GridPane layoutX="46.0" layoutY="8.0" prefHeight="138.0" prefWidth="374.0" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="8.0">
+      <GridPane layoutX="46.0" layoutY="8.0" prefHeight="138.0" prefWidth="447.0" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="8.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.4000244140625" minWidth="10.0" prefWidth="61.600016021728514" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.7999839782715" minWidth="10.0" prefWidth="252.79998397827146" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.7999839782715" minWidth="10.0" prefWidth="203.79998779296872" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.60000000000002" minWidth="10.0" prefWidth="171.80001220703127" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="52.799997711181646" vgrow="SOMETIMES" />
@@ -28,7 +28,7 @@
             <TextField fx:id="txtId" editable="false" prefHeight="26.0" prefWidth="248.0" GridPane.columnIndex="1" />
             <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label prefHeight="18.0" prefWidth="78.0" GridPane.columnIndex="2" />
-            <Label fx:id="labelErrorName" prefHeight="18.0" prefWidth="68.0" textFill="#df0a0a" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorName" prefHeight="18.0" prefWidth="177.0" textFill="#df0a0a" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <HBox prefHeight="92.0" prefWidth="342.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Save" />
