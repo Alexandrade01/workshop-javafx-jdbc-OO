@@ -1,9 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -147,15 +149,42 @@ public class SellerFormController implements Initializable {
 
 		ValidationException validationException = new ValidationException("Validation error");
 
+		// Validacao name
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 
+
+		// Validacao name
 		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
-
 			validationException.addError("name", "O campo não pode ser vazio ! ");
-
 		}
 		obj.setName(txtName.getText());
+		
+		// Validacao email
+		if (txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
+			validationException.addError("email", "O campo não pode ser vazio ! ");
+		}
+		obj.setEmail(txtEmail.getText());
 
+		
+		// Validacao data
+		if(dpBirthDate.getValue() == null) {
+			validationException.addError("dpBirthDate", "O campo não pode ser vazio ! ");
+		}
+		else {
+			Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setBirthDate(Date.from(instant));
+		}
+		
+		// validacao salary
+		if (txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals("")) {
+			validationException.addError("baseSalary", "O campo não pode ser vazio ! ");
+		}
+		obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
+		
+		
+		// validacao department
+		obj.setDepartment(comboBoxDepartment.getValue());
+		
 		if (validationException.getErrors().size() > 0) {
 
 			throw validationException;
@@ -183,7 +212,7 @@ public class SellerFormController implements Initializable {
 		Constraints.setTextFieldDouble(txtBaseSalary);
 		Constraints.setTextFieldMaxLength(txtEmail, 60);
 		Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
-		
+
 		initializeComboBoxDepartment();
 
 	}
@@ -206,8 +235,8 @@ public class SellerFormController implements Initializable {
 			// zoneId.systemDefault
 			dpBirthDate.setValue(LocalDate.ofInstant(entity.getBirthDate().toInstant(), ZoneId.systemDefault()));
 		}
-		if(entity.getDepartment() == null) {
-			
+		if (entity.getDepartment() == null) {
+
 			comboBoxDepartment.getSelectionModel().selectFirst();
 		}
 		comboBoxDepartment.setValue(entity.getDepartment());
@@ -227,11 +256,12 @@ public class SellerFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 
 		Set<String> fields = errors.keySet();
-
-		if (fields.contains("name")) {
-
-			labelErrorName.setText(errors.get("name"));
-		}
+		
+		labelErrorName.setText(fields.contains("name") ? errors.get("name"):"");
+		labelErrorEmail.setText(fields.contains("email") ? errors.get("email") : "");
+		labelErrorBaseSalary.setText(fields.contains("baseSalary") ? errors.get("baseSalary") : "");
+		labelErrorBirthDate.setText(fields.contains("dpBirthDate") ? errors.get("dpBirthDate") : "");
+		
 	}
 
 	private void initializeComboBoxDepartment() {

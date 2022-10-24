@@ -153,6 +153,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			// abre e espera a conclusao
 			dialogStage.showAndWait();
+			
 		} catch (IOException e) {
 
 			e.printStackTrace();
