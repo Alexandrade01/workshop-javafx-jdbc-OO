@@ -25,10 +25,11 @@ public class CategoriaService {
 		}
 	}
 	
-	public void remove(Seller department) {
+	public void remove(Categoria obj) {
 		
-		dao.deleteById(department.getId());
+		dao.deleteById(obj.getId());
 		
 	}
+
 
 }
