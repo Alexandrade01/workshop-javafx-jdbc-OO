@@ -5,7 +5,6 @@ import java.util.List;
 import model.dao.CategoriaDao;
 import model.dao.DaoFactory;
 import model.entities.Categoria;
-import model.entities.Seller;
 
 public class CategoriaService {
 	

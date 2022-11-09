@@ -12,12 +12,6 @@
          <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="Registration">
-                  <items>
-                    <MenuItem fx:id="menuItemSeller" mnemonicParsing="false" onAction="#onMenuItemSellerAction" text="Seller" />
-                        <MenuItem fx:id="menuItemDepartment" mnemonicParsing="false" onAction="#onMenuItemDepartmentAction" text="Department" />
-                  </items>
-                </Menu>
                   <Menu mnemonicParsing="false" text="Categoria">
                      <items>
                         <MenuItem fx:id="menuItemCategoria" mnemonicParsing="false" onAction="#onMenuItemCategoriaAction" text="Editar/Alterar" />
