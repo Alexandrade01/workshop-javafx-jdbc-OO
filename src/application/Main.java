@@ -29,7 +29,7 @@ public class Main extends Application {
 			
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("Meu primeiro projeto Desktop");
+			primaryStage.setTitle("Fesa Wallet ®");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -203,7 +203,8 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 	@Override
 	public void onDataChanged() {
-		// TODO Auto-generated method stub
+		//verificador de mudanças, caso haja alguma sera feito um update de tabela da view
+		updateTableView();
 
 	}
 	

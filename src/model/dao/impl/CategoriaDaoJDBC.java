@@ -13,16 +13,14 @@ import db.DB;
 import db.DbException;
 import model.dao.CategoriaDao;
 import model.entities.Categoria;
-import model.entities.Department;
-import model.entities.Seller;
 import model.enumerations.TipoDeMovimento;
 
 public class CategoriaDaoJDBC implements CategoriaDao {
 	
 	private Connection conn;
 
-	public CategoriaDaoJDBC(Connection connection) {
-		connection = conn;
+	public CategoriaDaoJDBC(Connection conn) {
+		this.conn = conn;
 	}
 
 	@Override

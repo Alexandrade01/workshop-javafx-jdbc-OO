@@ -20,7 +20,7 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Categoria">
                      <items>
-                        <MenuItem fx:id="menuItemAbout1" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="Editar/Alterar" />
+                        <MenuItem fx:id="menuItemCategoria" mnemonicParsing="false" onAction="#onMenuItemCategoriaAction" text="Editar/Alterar" />
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="Help">
