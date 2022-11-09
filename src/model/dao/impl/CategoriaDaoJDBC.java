@@ -70,7 +70,7 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 			st = conn.prepareStatement(
 					"UPDATE categoria "
 					+ "SET descricao = ?, tipoDeMovimento = ? "
-					+ "WHERE Id = ?");
+					+ "WHERE id = ?");
 			
 			st.setString(1, obj.getDescricao());
 			st.setString(2, obj.getTipoDeMovimento().toString());

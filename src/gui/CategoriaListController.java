@@ -69,10 +69,10 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
-//		Stage parentStage = Utils.currentStage(event);
-//		Seller obj = new Seller();
-//		createDialogForm(obj, "/gui/SellerForm.fxml", parentStage);
-//		System.out.println("onBtNewAction");
+		Stage parentStage = Utils.currentStage(event);
+		Categoria obj = new Categoria();
+		createDialogForm(obj, "/gui/CategoriaForm.fxml", parentStage);
+		System.out.println("onBtNewAction");
 	}
 
 	public void setCategoriaService(CategoriaService service) {
@@ -125,8 +125,8 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 			// populando o form department com o obj Seller
 			CategoriaFormController controller = loader.getController();
-			controller.setSeller(obj);
-			controller.setServices(new SellerService(), new DepartmentService());
+			controller.setCategoria(obj);
+			controller.setServices(new CategoriaService());
 			controller.loadAssociatedObjects();
 
 			// adiciona um item na lista de listeners portanto sera chamado para atualizar a

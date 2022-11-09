@@ -106,5 +106,23 @@ public class Utils {
 			}
 		});
 	}
+	
+	public static <T> void formatTableColumnNomeOfId(TableColumn<T, Integer> tableColumn) {
+		tableColumn.setCellFactory(column -> {
+			TableCell<T, Integer> cell = new TableCell<T, Integer>() {
+				@Override
+				protected void updateItem(Integer item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty) {
+						setText(null);
+					} else {
+						
+						
+					}
+				}
+			};
+			return cell;
+		});
+	}
 
 }
