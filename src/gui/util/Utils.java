@@ -1,5 +1,6 @@
 package gui.util;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -118,6 +119,26 @@ public class Utils {
 					} else {
 						
 						
+					}
+				}
+			};
+			return cell;
+		});
+	}
+	
+	public static <T> void formatTableColumnCash(TableColumn<T, Double> tableColumn) {
+		tableColumn.setCellFactory(column -> {
+			TableCell<T, Double> cell = new TableCell<T, Double>() {
+				@Override
+				protected void updateItem(Double item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty) {
+						setText(null);
+					} else {
+						NumberFormat valor;
+						Locale localBrasil = new Locale("pt", "BR");
+						valor = NumberFormat.getCurrencyInstance(localBrasil);
+						setText(String.format(valor.format(item)));
 					}
 				}
 			};

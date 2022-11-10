@@ -30,7 +30,7 @@ idUsuarioSolicitante int(11) NOT NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (idUsuarioSolicitante) REFERENCES usuario (id)
 );
-
+select * from meiopagamento
 create table categoria (
 id INT(11) NOT NULL AUTO_INCREMENT,
 descricao VARCHAR(100) NOT NULL,

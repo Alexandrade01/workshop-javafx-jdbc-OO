@@ -16,6 +16,11 @@
          <children>
             <MenuBar>
               <menus>
+                  <Menu mnemonicParsing="false" text="Meios de pagamento">
+                     <items>
+                        <MenuItem fx:id="menuItemMeioPagamento" mnemonicParsing="false" onAction="#onMenuItemMeioPagamentoAction" text="Minhas carteiras" />
+                     </items>
+                  </Menu>
                   <Menu mnemonicParsing="false" text="Categoria">
                      <items>
                         <MenuItem fx:id="menuItemCategoria" mnemonicParsing="false" onAction="#onMenuItemCategoriaAction" text="Editar/Alterar" />

@@ -25,7 +25,7 @@ private MeioPagamentoDao dao = DaoFactory.createMeioPagamentoDao();
 		}
 	}
 	
-	public void remove(Categoria obj) {
+	public void remove(MeioPagamento obj) {
 		
 		dao.deleteById(obj.getId());
 		

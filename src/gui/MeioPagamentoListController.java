@@ -29,59 +29,55 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Categoria;
-import model.enumerations.TipoDeMovimento;
-import model.service.CategoriaService;
+import model.entities.MeioPagamento;
+import model.service.MeioPagamentoService;
 
-public class CategoriaListController implements Initializable, DataChangeListener {
-
-	private CategoriaService service;
-
-	@FXML
-	private TableView<Categoria> tableViewCategoria;
+public class MeioPagamentoListController implements Initializable, DataChangeListener {
+	
+	private MeioPagamentoService service;
 
 	@FXML
-	private TableColumn<Categoria, Integer> tableColumnId;
+	private TableView<MeioPagamento> tableViewMeioPagamento;
 
 	@FXML
-	private TableColumn<Categoria, String> tableColumnDescricao;
+	private TableColumn<MeioPagamento, Integer> tableColumnId;
 
 	@FXML
-	private TableColumn<Categoria, TipoDeMovimento> tableColumnTipoDeMovimento;
+	private TableColumn<MeioPagamento, String> tableColumnDescricao;
 
 	@FXML
-	private TableColumn<Categoria, Integer> tableColumnIdUsuario;
+	private TableColumn<MeioPagamento, Double> tableColumnSaldo;
 
+	@FXML
+	private TableColumn<MeioPagamento, Integer> tableColumnUsuarioId;
+	
 	@FXML
 	private Button buttonNew;
 
 	@FXML
-	private TableColumn<Categoria, Categoria> tableColumnEdit;
+	private TableColumn<MeioPagamento, MeioPagamento> tableColumnEdit;
 
 	@FXML
-	private TableColumn<Categoria, Categoria> tableColumnRemove;
+	private TableColumn<MeioPagamento, MeioPagamento> tableColumnRemove;
 
-	private ObservableList<Categoria> obsList;
-
+	private ObservableList<MeioPagamento> obsList;
+	
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
-		Categoria obj = new Categoria();
-		createDialogForm(obj, "/gui/CategoriaForm.fxml", parentStage);
-		System.out.println("onBtNewAction");
+//		Stage parentStage = Utils.currentStage(event);
+//		Categoria obj = new Categoria();
+//		createDialogForm(obj, "/gui/CategoriaForm.fxml", parentStage);
+//		System.out.println("onBtNewAction");
 	}
-
-	public void setCategoriaService(CategoriaService service) {
-
+	
+	public void setMeioPagamentoService(MeioPagamentoService service) {
 		this.service = service;
-
 	}
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 		initializeNodes();
-
+		
 	}
 
 	// setando as colunas de acordo com o nome dos atributos das classes
@@ -89,29 +85,75 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-		tableColumnTipoDeMovimento.setCellValueFactory(new PropertyValueFactory<>("saldo"));
-		tableColumnIdUsuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+		tableColumnSaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
+		tableColumnUsuarioId.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+		
+		Utils.formatTableColumnCash(tableColumnSaldo);
 
 		// serve para que a lista acompanhe ate o final da tela
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewCategoria.prefHeightProperty().bind(stage.heightProperty());
-
+		tableViewMeioPagamento.prefHeightProperty().bind(stage.heightProperty());
+		
 	}
-
+	
 	public void updateTableView() {
 
 		if (service == null) {
 
 			throw new IllegalStateException("Service was null");
 		}
-		List<Categoria> list = service.findAll();
+		List<MeioPagamento> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewCategoria.setItems(obsList);
+		tableViewMeioPagamento.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
 	}
 
-	private void createDialogForm(Categoria obj, String absoluteName, Stage parentStage) {
+	private void initRemoveButtons() {
+		
+		tableColumnRemove.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnRemove.setCellFactory(param -> new TableCell<MeioPagamento, MeioPagamento>() {
+			private final Button button = new Button("Remover");
+
+			@Override
+			protected void updateItem(MeioPagamento obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setPrefWidth(80);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+		});
+		
+	}
+
+	private void initEditButtons() {
+		
+		tableColumnEdit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEdit.setCellFactory(param -> new TableCell<MeioPagamento, MeioPagamento>() {
+			private final Button button = new Button("Editar");
+
+			@Override
+			protected void updateItem(MeioPagamento obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setPrefWidth(80);
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/MeioPagamentoForm.fxml", Utils.currentStage(event)));
+
+			}
+		});
+		
+	}
+	
+	private void createDialogForm(MeioPagamento obj, String absoluteName, Stage parentStage) {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
@@ -119,10 +161,10 @@ public class CategoriaListController implements Initializable, DataChangeListene
 			// carrega a view
 			Pane pane = loader.load();
 
-			// populando o form department com o obj Seller
-			CategoriaFormController controller = loader.getController();
+			// populando o form com os meios de pagamento
+			MeioPagamentoFormController controller = loader.getController();
 			controller.setCategoria(obj);
-			controller.setServices(new CategoriaService());
+			controller.setServices(new MeioPagamentoService());
 			controller.loadAssociatedObjects();
 
 			// adiciona um item na lista de listeners portanto sera chamado para atualizar a
@@ -156,47 +198,6 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 	}
 
-	private void initEditButtons() {
-		tableColumnEdit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEdit.setCellFactory(param -> new TableCell<Categoria, Categoria>() {
-			private final Button button = new Button("Editar");
-
-			@Override
-			protected void updateItem(Categoria obj, boolean empty) {
-				super.updateItem(obj, empty);
-				if (obj == null) {
-					setGraphic(null);
-					return;
-				}
-				setGraphic(button);
-				button.setPrefWidth(80);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/CategoriaForm.fxml", Utils.currentStage(event)));
-
-			}
-		});
-	}
-
-	private void initRemoveButtons() {
-		tableColumnRemove.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnRemove.setCellFactory(param -> new TableCell<Categoria, Categoria>() {
-			private final Button button = new Button("Remover");
-
-			@Override
-			protected void updateItem(Categoria obj, boolean empty) {
-				super.updateItem(obj, empty);
-				if (obj == null) {
-					setGraphic(null);
-					return;
-				}
-				setGraphic(button);
-				button.setPrefWidth(80);
-				button.setOnAction(event -> removeEntity(obj));
-			}
-		});
-
-	}
-
 	@Override
 	public void onDataChanged() {
 		//verificador de mudanças, caso haja alguma sera feito um update de tabela da view
@@ -204,7 +205,7 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 	}
 	
-	private void removeEntity(Categoria obj) {
+	private void removeEntity(MeioPagamento obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que você quer deletar ?");
 
 		if (result.get() == ButtonType.OK) {
@@ -221,5 +222,7 @@ public class CategoriaListController implements Initializable, DataChangeListene
 			}
 		}
 	}
+
+	
 
 }

@@ -17,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.service.CategoriaService;
+import model.service.MeioPagamentoService;
 
 public class MainViewController implements Initializable {
 
@@ -28,6 +29,8 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemAbout;
 	@FXML
 	private MenuItem menuItemCategoria;
+	@FXML
+	private MenuItem menuItemMeioPagamento;
 
 	@FXML
 	public void onMenuItemAboutAction() {
@@ -38,10 +41,20 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemCategoriaAction() {
-		System.out.println("onMenuItemCategoriaAction");
+		
 		loadView("/gui/CategoriaList.fxml", (CategoriaListController controller) -> {
 
 			controller.setCategoriaService(new CategoriaService());
+			controller.updateTableView();
+		});
+	}
+	
+	@FXML
+	public void onMenuItemMeioPagamentoAction() {
+
+		loadView("/gui/MeioPagamentoList.fxml", (MeioPagamentoListController controller) -> {
+
+			controller.setMeioPagamentoService(new MeioPagamentoService());
 			controller.updateTableView();
 		});
 	}
