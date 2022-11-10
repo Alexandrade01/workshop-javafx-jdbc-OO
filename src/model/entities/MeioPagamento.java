@@ -20,7 +20,7 @@ public class MeioPagamento implements Serializable {
 	}
 
 	public MeioPagamento() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public String getDescricao() {

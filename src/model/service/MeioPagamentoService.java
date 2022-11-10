@@ -2,21 +2,21 @@ package model.service;
 
 import java.util.List;
 
-import model.dao.CategoriaDao;
 import model.dao.DaoFactory;
+import model.dao.MeioPagamentoDao;
 import model.entities.Categoria;
+import model.entities.MeioPagamento;
 
-public class CategoriaService {
+public class MeioPagamentoService {
 	
-	//configuracao de banco de dados
-	private CategoriaDao dao = DaoFactory.createCategoriaDao();
-
-	public List<Categoria> findAll() {
-
+private MeioPagamentoDao dao = DaoFactory.createMeioPagamentoDao();
+	
+	public List<MeioPagamento> findAll() {
+		
 		return dao.findAll();
 	}
 
-	public void saveOrUpdate(Categoria obj) {
+	public void saveOrUpdate(MeioPagamento obj) {
 
 		if (obj.getId() == null) {
 			dao.insert(obj);
@@ -24,12 +24,11 @@ public class CategoriaService {
 			dao.update(obj);
 		}
 	}
-
+	
 	public void remove(Categoria obj) {
-
+		
 		dao.deleteById(obj.getId());
-
+		
 	}
-
 
 }

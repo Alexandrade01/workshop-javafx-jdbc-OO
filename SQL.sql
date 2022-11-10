@@ -52,4 +52,3 @@ VALUES ('ROUPAS','DESPESA',1), ('SALARIO','RECEITA',1);
 
 #COMANDOS
 SELECT usuario.* from usuario WHERE usuario.nome = 'Ale' and usuario.senha = 'senha';
-
