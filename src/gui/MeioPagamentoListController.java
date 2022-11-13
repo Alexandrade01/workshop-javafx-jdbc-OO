@@ -64,10 +64,10 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 	
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
-//		Stage parentStage = Utils.currentStage(event);
-//		Categoria obj = new Categoria();
-//		createDialogForm(obj, "/gui/CategoriaForm.fxml", parentStage);
-//		System.out.println("onBtNewAction");
+		Stage parentStage = Utils.currentStage(event);
+		MeioPagamento obj = new MeioPagamento();
+		createDialogForm(obj, "/gui/MeioPagamentoForm.fxml", parentStage);
+		System.out.println("onBtNewAction");
 	}
 	
 	public void setMeioPagamentoService(MeioPagamentoService service) {
@@ -163,9 +163,8 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 
 			// populando o form com os meios de pagamento
 			MeioPagamentoFormController controller = loader.getController();
-			controller.setCategoria(obj);
+			controller.setMeioPagamento(obj);
 			controller.setServices(new MeioPagamentoService());
-			controller.loadAssociatedObjects();
 
 			// adiciona um item na lista de listeners portanto sera chamado para atualizar a
 			// lista

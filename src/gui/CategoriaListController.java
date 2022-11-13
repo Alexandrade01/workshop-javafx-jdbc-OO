@@ -89,8 +89,8 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-		tableColumnTipoDeMovimento.setCellValueFactory(new PropertyValueFactory<>("saldo"));
-		tableColumnIdUsuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+		tableColumnTipoDeMovimento.setCellValueFactory(new PropertyValueFactory<>("tipoDeMovimento"));
+		tableColumnIdUsuario.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
 
 		// serve para que a lista acompanhe ate o final da tela
 		Stage stage = (Stage) Main.getMainScene().getWindow();

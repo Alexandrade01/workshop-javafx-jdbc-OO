@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="240.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CategoriaFormController">
+<AnchorPane prefHeight="240.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MeioPagamentoFormController">
    <children>
       <GridPane layoutX="10.0" layoutY="8.0" prefHeight="306.0" prefWidth="518.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="8.0">
         <columnConstraints>
@@ -38,8 +38,8 @@
             <Label text="ID" />
             <TextField fx:id="txtId" editable="false" prefHeight="26.0" prefWidth="248.0" GridPane.columnIndex="1" />
             <Label prefHeight="38.0" prefWidth="123.0" text="Usuario (ID)" textAlignment="CENTER" GridPane.rowIndex="3" />
-            <TextField fx:id="txtIdUsuario" editable="false" prefHeight="26.0" prefWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txtDescricao1" prefHeight="26.0" prefWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtUsuarioId" editable="false" prefHeight="26.0" prefWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtSaldo" prefHeight="26.0" prefWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
