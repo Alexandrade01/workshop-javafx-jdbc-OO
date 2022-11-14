@@ -50,9 +50,6 @@ public class CategoriaListController implements Initializable, DataChangeListene
 	private TableColumn<Categoria, TipoDeMovimento> tableColumnTipoDeMovimento;
 
 	@FXML
-	private TableColumn<Categoria, Integer> tableColumnIdUsuario;
-
-	@FXML
 	private Button buttonNew;
 
 	@FXML
@@ -68,7 +65,6 @@ public class CategoriaListController implements Initializable, DataChangeListene
 		Stage parentStage = Utils.currentStage(event);
 		Categoria obj = new Categoria();
 		createDialogForm(obj, "/gui/CategoriaForm.fxml", parentStage);
-		System.out.println("onBtNewAction");
 	}
 
 	public void setCategoriaService(CategoriaService service) {
@@ -90,7 +86,6 @@ public class CategoriaListController implements Initializable, DataChangeListene
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 		tableColumnTipoDeMovimento.setCellValueFactory(new PropertyValueFactory<>("tipoDeMovimento"));
-		tableColumnIdUsuario.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
 
 		// serve para que a lista acompanhe ate o final da tela
 		Stage stage = (Stage) Main.getMainScene().getWindow();

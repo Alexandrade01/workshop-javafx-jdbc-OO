@@ -1,7 +1,6 @@
 package gui;
 
 import java.net.URL;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -148,7 +147,6 @@ public class MeioPagamentoFormController implements Initializable {
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
 		Utils.currentStage(event).close();
-		System.out.println("onBtCancelAction");
 
 	}
 

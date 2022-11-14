@@ -47,9 +47,6 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 
 	@FXML
 	private TableColumn<MeioPagamento, Double> tableColumnSaldo;
-
-	@FXML
-	private TableColumn<MeioPagamento, Integer> tableColumnUsuarioId;
 	
 	@FXML
 	private Button buttonNew;
@@ -67,7 +64,6 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 		Stage parentStage = Utils.currentStage(event);
 		MeioPagamento obj = new MeioPagamento();
 		createDialogForm(obj, "/gui/MeioPagamentoForm.fxml", parentStage);
-		System.out.println("onBtNewAction");
 	}
 	
 	public void setMeioPagamentoService(MeioPagamentoService service) {
@@ -86,7 +82,6 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 		tableColumnSaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
-		tableColumnUsuarioId.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
 		
 		Utils.formatTableColumnCash(tableColumnSaldo);
 

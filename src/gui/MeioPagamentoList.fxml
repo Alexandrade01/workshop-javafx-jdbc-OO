@@ -14,7 +14,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="405.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MeioPagamentoListController">
+<VBox prefHeight="405.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MeioPagamentoListController">
    <children>
       <Label prefHeight="24.0" prefWidth="210.0" text="Registros do meios de pagamento">
          <font>
@@ -40,7 +40,6 @@
           <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
           <TableColumn fx:id="tableColumnDescricao" prefWidth="75.0" text="Descrição" />
             <TableColumn fx:id="tableColumnSaldo" prefWidth="125.60005187988281" text="Saldo" />
-            <TableColumn fx:id="tableColumnUsuarioId" prefWidth="90.39996337890625" text="Id do usuario" />
             <TableColumn fx:id="tableColumnEdit" prefWidth="84.79998779296875" />
             <TableColumn fx:id="tableColumnRemove" prefWidth="68.800048828125" />
         </columns>

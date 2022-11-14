@@ -150,7 +150,6 @@ public class CategoriaFormController implements Initializable {
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
 		Utils.currentStage(event).close();
-		System.out.println("onBtCancelAction");
 
 	}
 	
