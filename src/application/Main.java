@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -21,10 +22,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			FXMLLoader loaderLogin = new FXMLLoader(getClass().getResource("/gui/telalogin.fxml"));
-			SplitPane scrollPaneLogin = loaderLogin.load();
+			FXMLLoader loaderLogin = new FXMLLoader(getClass().getResource("/gui/UsuarioLoginView.fxml"));
+			AnchorPane anchorPaneLogin = loaderLogin.load();
 			Stage stage = new Stage();
-			mainScene = new Scene(scrollPaneLogin);
+			mainScene = new Scene(anchorPaneLogin);
 			stage.setScene(mainScene);
 			stage.showAndWait();
 			

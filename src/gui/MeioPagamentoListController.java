@@ -63,7 +63,7 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		MeioPagamento obj = new MeioPagamento();
-		createDialogForm(obj, "/gui/MeioPagamentoForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/MeioPagamentoFormView.fxml", parentStage);
 	}
 	
 	public void setMeioPagamentoService(MeioPagamentoService service) {
@@ -141,7 +141,7 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 				setGraphic(button);
 				button.setPrefWidth(80);
 				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/MeioPagamentoForm.fxml", Utils.currentStage(event)));
+						event -> createDialogForm(obj, "/gui/MeioPagamentoFormView.fxml", Utils.currentStage(event)));
 
 			}
 		});

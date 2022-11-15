@@ -64,7 +64,7 @@ public class CategoriaListController implements Initializable, DataChangeListene
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Categoria obj = new Categoria();
-		createDialogForm(obj, "/gui/CategoriaForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/CategoriaFormView.fxml", parentStage);
 	}
 
 	public void setCategoriaService(CategoriaService service) {
@@ -166,7 +166,7 @@ public class CategoriaListController implements Initializable, DataChangeListene
 				setGraphic(button);
 				button.setPrefWidth(80);
 				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/CategoriaForm.fxml", Utils.currentStage(event)));
+						event -> createDialogForm(obj, "/gui/CategoriaFormView.fxml", Utils.currentStage(event)));
 
 			}
 		});

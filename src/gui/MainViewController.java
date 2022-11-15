@@ -34,14 +34,14 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemAboutAction() {
-		loadView("/gui/About.fxml", x -> {
+		loadView("/gui/AboutView.fxml", x -> {
 		});
 	}
 	
 	@FXML
 	public void onMenuItemCategoriaAction() {
 		
-		loadView("/gui/CategoriaList.fxml", (CategoriaListController controller) -> {
+		loadView("/gui/CategoriaListView.fxml", (CategoriaListController controller) -> {
 
 			controller.setCategoriaService(new CategoriaService());
 			controller.updateTableView();
@@ -51,7 +51,7 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemMeioPagamentoAction() {
 
-		loadView("/gui/MeioPagamentoList.fxml", (MeioPagamentoListController controller) -> {
+		loadView("/gui/MeioPagamentoListView.fxml", (MeioPagamentoListController controller) -> {
 
 			controller.setMeioPagamentoService(new MeioPagamentoService());
 			controller.updateTableView();
@@ -96,34 +96,5 @@ public class MainViewController implements Initializable {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
-
-//	private synchronized void loadView2(String absoluteName) {
-//
-//		try {
-//
-//			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-//			VBox newVBox = loader.load();
-//
-//			// instancia a tela principal em um objeto
-//			Scene mainScene = Main.getMainScene();
-//			// guarda o Vbox da tela principal
-//			VBox mainVBox = (VBox) (((ScrollPane) mainScene.getRoot()).getContent());
-//			// guarda os filhos da Vbox principal no caso o primeiro que é a barra superior
-//			Node mainMenu = mainVBox.getChildren().get(0);
-//			// limpa todos os childrens da tela
-//			mainVBox.getChildren().clear();
-//			// remonta os childrens com os da tela principal e em seguida da tela about.fxml
-//			mainVBox.getChildren().add(mainMenu);
-//			mainVBox.getChildren().addAll(newVBox.getChildren());
-//			
-//			DepartmentListController controller = loader.getController();
-//			controller.setDepartmentService(new DepartmentService());
-//			controller.updateTableView();
-//			
-//		} catch (IOException e) {
-//
-//			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-//		}
-//	}
 
 }
