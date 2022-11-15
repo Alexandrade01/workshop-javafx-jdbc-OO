@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -19,13 +20,24 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
+			FXMLLoader loaderLogin = new FXMLLoader(getClass().getResource("/gui/telalogin.fxml"));
+			SplitPane scrollPaneLogin = loaderLogin.load();
+			Stage stage = new Stage();
+			mainScene = new Scene(scrollPaneLogin);
+			stage.setScene(mainScene);
+			stage.showAndWait();
+			
+			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));
 			ScrollPane scrollPane = loader.load();
 			
 			//configurando o scrollpane para ficar do tamanho da tela
 			scrollPane.setFitToHeight(true);
 			scrollPane.setFitToWidth(true);
+			
 
+			
 			
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
