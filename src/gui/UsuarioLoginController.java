@@ -14,8 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Usuario;
@@ -37,20 +37,24 @@ public class UsuarioLoginController implements Initializable {
 
 	@FXML
 	private MenuItem menuItemCadastroUsuario;
+	
+	public Integer getIdUser() {
+		
+		return user.getId();
+	}
 
 	@FXML
 	public void onBtFindUserAction(ActionEvent event) {
-
+		
 		user = service.findUser(txtEmail.getText(), txtSenha.getText());
 		if (user == null) {
 
 			Alerts.showAlert("Acesso não permitido ", null, "usuario e/ou senha não foram encontrado(s)",
 					AlertType.ERROR);
-		} else {
-
+		}
+		else {
+			
 			Utils.currentStage(event).close();
-			createDialogForm(user, "/fesawallet/MainView.fxml", new Stage());
-
 		}
 	}
 
@@ -59,7 +63,7 @@ public class UsuarioLoginController implements Initializable {
 
 		Usuario obj = new Usuario();
 
-		createDialogForm(obj, "/fesawallet/UsuarioForm.fxml", new Stage());
+		createDialogForm(obj, "/gui/UsuarioFormView.fxml", new Stage());
 	
 
 	}
@@ -76,9 +80,9 @@ public class UsuarioLoginController implements Initializable {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 
-			ScrollPane pane = loader.load();
+			AnchorPane anchorPane = loader.load();
 			
-			Scene mainScene = new Scene(pane);
+			Scene mainScene = new Scene(anchorPane);
 			
 			Stage primaryStage = new Stage();
 			primaryStage.setScene(mainScene);

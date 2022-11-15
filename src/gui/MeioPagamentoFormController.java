@@ -147,7 +147,7 @@ public class MeioPagamentoFormController implements Initializable {
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
 		Utils.currentStage(event).close();
-
+		
 	}
 
 	@Override

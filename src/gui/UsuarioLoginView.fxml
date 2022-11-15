@@ -17,7 +17,7 @@
    <children>
       <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="250.0">
         <menus>
-          <Menu fx:id="menuItemCadastroUsuario" mnemonicParsing="false" onAction="#onBtFindUserAction" text="Cadastre-se">
+          <Menu fx:id="menuItemCadastroUsuario" mnemonicParsing="false" text="Cadastre-se">
             <items>
               <MenuItem fx:id="btCadastroUsuario" mnemonicParsing="false" onAction="#onBtNewUser" text="Individual" />
             </items>

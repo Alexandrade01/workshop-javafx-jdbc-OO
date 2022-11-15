@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UsuarioCadastroFormController">
+   <children>
+      <GridPane layoutX="10.0" layoutY="8.0" prefHeight="300.0" prefWidth="600.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="8.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.4000244140625" minWidth="10.0" prefWidth="61.600016021728514" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.7999839782715" minWidth="10.0" prefWidth="203.79998779296872" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.60000000000002" minWidth="10.0" prefWidth="171.80001220703127" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="105.2000244140625" minHeight="10.0" prefHeight="57.60000228881836" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="105.2000244140625" minHeight="10.0" prefHeight="57.60000228881836" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="105.2000244140625" minHeight="10.0" prefHeight="57.60000228881836" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="105.2000244140625" minHeight="10.0" prefHeight="45.39999999999998" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="105.2000244140625" minHeight="10.0" prefHeight="45.39999999999998" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="79.0" minHeight="55.0" prefHeight="59.0" />
+        </rowConstraints>
+         <children>
+            <Label text="Nome" />
+            <Label text="Sobrenome" GridPane.rowIndex="1" />
+            <Label text="Email" GridPane.rowIndex="2" />
+            <Label text="Senha" GridPane.rowIndex="3" />
+            <Label fx:id="labelErrorNome" prefHeight="58.0" prefWidth="193.0" textAlignment="JUSTIFY" textFill="RED" GridPane.columnIndex="2" />
+            <Label fx:id="labelErrorSobrenome" prefHeight="59.0" prefWidth="193.0" textAlignment="JUSTIFY" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorEmail" prefHeight="63.0" prefWidth="193.0" textAlignment="JUSTIFY" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="txtNome" promptText="Digite seu nome" GridPane.columnIndex="1" />
+            <TextField fx:id="txtSobrenome" promptText="Digite seu sobrenome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtEmail" promptText="Digite o usuario" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtSenha" promptText="Digite a senha" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtRepeticaoSenha" promptText="Repita a senha" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <HBox prefHeight="46.0" prefWidth="274.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" prefHeight="30.0" prefWidth="90.0" text="Save">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" prefHeight="30.0" prefWidth="90.0" text="Cancel">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+            <Label fx:id="labelErrorSenha" prefHeight="76.0" prefWidth="193.0" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <children>
+                  <Button fx:id="btHelpSenha" mnemonicParsing="false" onAction="#onBtHelpSenhaAction" prefHeight="30.0" prefWidth="112.0" text="Regras de senha" textAlignment="CENTER">
+                     <effect>
+                        <ColorAdjust brightness="-0.32" contrast="0.28" hue="-0.86" saturation="0.57" />
+                     </effect>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <Label text="Repita a senha :" GridPane.rowIndex="4" />
+            <Label fx:id="labelErrorRepeticaoSenha" prefHeight="76.0" prefWidth="193.0" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
