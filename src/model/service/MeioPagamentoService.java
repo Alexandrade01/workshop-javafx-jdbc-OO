@@ -4,16 +4,20 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.MeioPagamentoDao;
-import model.entities.Categoria;
 import model.entities.MeioPagamento;
 
 public class MeioPagamentoService {
-	
-private MeioPagamentoDao dao = DaoFactory.createMeioPagamentoDao();
-	
+
+	private MeioPagamentoDao dao = DaoFactory.createMeioPagamentoDao();
+
 	public List<MeioPagamento> findAll() {
-		
+
 		return dao.findAll();
+	}
+
+	public List<MeioPagamento> findByUserId(Integer id) {
+
+		return dao.findByUserId(id);
 	}
 
 	public void saveOrUpdate(MeioPagamento obj) {
@@ -24,11 +28,11 @@ private MeioPagamentoDao dao = DaoFactory.createMeioPagamentoDao();
 			dao.update(obj);
 		}
 	}
-	
+
 	public void remove(MeioPagamento obj) {
-		
+
 		dao.deleteById(obj.getId());
-		
+
 	}
 
 }

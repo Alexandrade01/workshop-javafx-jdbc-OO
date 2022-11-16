@@ -30,6 +30,12 @@ public class CategoriaService {
 		dao.deleteById(obj.getId());
 
 	}
+	
+	public List<Categoria> findByUserId(Integer userId){
+		
+		return dao.findByUserId(userId);
+		
+	}
 
 
 }

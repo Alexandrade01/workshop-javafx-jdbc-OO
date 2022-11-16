@@ -11,5 +11,6 @@ public interface MeioPagamentoDao {
 	void deleteById(Integer id);
 	MeioPagamento findById(Integer id);
 	List<MeioPagamento> findAll();
+	List<MeioPagamento> findByUserId(Integer userId);
 
 }

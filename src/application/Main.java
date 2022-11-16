@@ -18,11 +18,7 @@ public class Main extends Application {
 	}
 	
 	private static Scene mainScene;
-	Integer usuarioID;
-	
-	public Integer getUsuarioID() {
-		return usuarioID;
-	}
+	private static Integer usuarioID;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -56,6 +52,10 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Integer getUsuarioID() {
+		return usuarioID;
 	}
 	
 	public static Scene getMainScene() {

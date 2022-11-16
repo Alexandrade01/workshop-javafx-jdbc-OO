@@ -16,7 +16,7 @@ import model.entities.Categoria;
 import model.enumerations.TipoDeMovimento;
 
 public class CategoriaDaoJDBC implements CategoriaDao {
-	
+
 	private Connection conn;
 
 	public CategoriaDaoJDBC(Connection conn) {
@@ -25,22 +25,19 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 
 	@Override
 	public void insert(Categoria obj) {
-		
+
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"INSERT INTO categoria "
-					+ "(descricao, tipoDeMovimento, idUsuario) "
-					+ "VALUES "
-					+ "(?, ?, ?)",
+					"INSERT INTO categoria " + "(descricao, tipoDeMovimento, idUsuario) " + "VALUES " + "(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
-			
+
 			st.setString(1, obj.getDescricao());
 			st.setString(2, obj.getTipoDeMovimento().toString());
 			st.setInt(3, obj.getIdUsuario());
-			
+
 			int rowsAffected = st.executeUpdate();
-			
+
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs.next()) {
@@ -48,15 +45,12 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 					obj.setId(id);
 				}
 				DB.closeResultSet(rs);
-			}
-			else {
+			} else {
 				throw new DbException("Unexpected error! No rows affected!");
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
 
@@ -64,24 +58,20 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 
 	@Override
 	public void update(Categoria obj) {
-		
+
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement(
-					"UPDATE categoria "
-					+ "SET descricao = ?, tipoDeMovimento = ? "
-					+ "WHERE id = ?");
-			
+			st = conn
+					.prepareStatement("UPDATE categoria " + "SET descricao = ?, tipoDeMovimento = ? " + "WHERE id = ?");
+
 			st.setString(1, obj.getDescricao());
 			st.setString(2, obj.getTipoDeMovimento().toString());
 			st.setInt(3, obj.getId());
-			
+
 			st.executeUpdate();
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
 
@@ -92,22 +82,20 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("DELETE FROM categoria WHERE id = ?");
-			
+
 			st.setInt(1, id);
-			
+
 			st.executeUpdate();
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
-		
+
 	}
-	
+
 	@Override
-	public Categoria findById(Integer id) {
+	public List<Categoria> findByUserId(Integer id) {
 		
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -115,42 +103,9 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 			st = conn.prepareStatement(
 					"SELECT * "
 					+ "FROM categoria "
-					+ "WHERE id = ?");
+					+ "WHERE idUsuario = ?");
 			
 			st.setInt(1, id);
-			rs = st.executeQuery();
-			if (rs.next()) {
-				Categoria obj = instantiateCategoria(rs);
-				return obj;
-			}
-			return null;
-		}
-		catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		}
-		finally {
-			DB.closeStatement(st);
-			DB.closeResultSet(rs);
-		}
-	}
-	
-	private Categoria instantiateCategoria(ResultSet rs) throws SQLException {
-		Categoria obj = new Categoria();
-		obj.setId(rs.getInt("id"));
-		obj.setDescricao(rs.getString("descricao"));
-		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("tipoDeMovimento")));
-		obj.setIdUsuario(rs.getInt("idUsuario"));
-		return obj;
-	}
-
-	@Override
-	public List<Categoria> findAll() {
-		
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		
-		try {
-			st = conn.prepareStatement("SELECT * FROM categoria ORDER BY id");
 			
 			rs = st.executeQuery();
 			
@@ -167,8 +122,8 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 			}
 			
 			return list;
-			
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		}
 		finally {
@@ -177,8 +132,46 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 		}
 	}
 
-	
+	@Override
+	public List<Categoria> findAll() {
 
-	
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			st = conn.prepareStatement("SELECT * FROM categoria ORDER BY id");
+
+			rs = st.executeQuery();
+
+			List<Categoria> list = new ArrayList<>();
+
+			while (rs.next()) {
+
+				Categoria obj = new Categoria();
+				obj.setId(rs.getInt("id"));
+				obj.setDescricao(rs.getString("descricao"));
+				obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("tipoDeMovimento")));
+				obj.setIdUsuario(rs.getInt("idUsuario"));
+				list.add(obj);
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	private Categoria instantiateCategoria(ResultSet rs) throws SQLException {
+		Categoria obj = new Categoria();
+		obj.setId(rs.getInt("id"));
+		obj.setDescricao(rs.getString("descricao"));
+		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("tipoDeMovimento")));
+		obj.setIdUsuario(rs.getInt("idUsuario"));
+		return obj;
+	}
 
 }

@@ -30,7 +30,7 @@ idUsuarioSolicitante int(11) NOT NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (idUsuarioSolicitante) REFERENCES usuario (id)
 );
-select * from meiopagamento
+select * from usuario
 create table categoria (
 id INT(11) NOT NULL AUTO_INCREMENT,
 descricao VARCHAR(100) NOT NULL,
@@ -52,3 +52,4 @@ VALUES ('ROUPAS','DESPESA',1), ('SALARIO','RECEITA',1);
 
 #COMANDOS
 SELECT usuario.* from usuario WHERE usuario.nome = 'Ale' and usuario.senha = 'senha';
+

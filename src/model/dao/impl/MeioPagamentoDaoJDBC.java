@@ -179,5 +179,41 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 			DB.closeResultSet(rs);
 		}
 	}
+	
+	@Override
+	public List<MeioPagamento> findByUserId(Integer userId) {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement("SELECT * FROM meiopagamento WHERE usuarioId = ?");
+			
+			st.setInt(1, userId);
+			
+			rs = st.executeQuery();
+			
+			List<MeioPagamento> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				
+				MeioPagamento obj = new MeioPagamento();
+				obj.setId(rs.getInt("id"));
+				obj.setDescricao(rs.getString("descricao"));
+				obj.setSaldo(rs.getDouble("saldo"));
+				obj.setUsuarioId(rs.getInt("usuarioId"));
+				list.add(obj);
+			}
+			
+			return list;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 
 }

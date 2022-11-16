@@ -36,6 +36,8 @@ import model.service.CategoriaService;
 public class CategoriaListController implements Initializable, DataChangeListener {
 
 	private CategoriaService service;
+	
+	private Integer usuarioID;
 
 	@FXML
 	private TableView<Categoria> tableViewCategoria;
@@ -82,7 +84,9 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 	// setando as colunas de acordo com o nome dos atributos das classes
 	private void initializeNodes() {
-
+		//id do usuario para carregar as listas
+		usuarioID = Main.getUsuarioID();
+		
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 		tableColumnTipoDeMovimento.setCellValueFactory(new PropertyValueFactory<>("tipoDeMovimento"));
@@ -99,7 +103,7 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 			throw new IllegalStateException("Service was null");
 		}
-		List<Categoria> list = service.findAll();
+		List<Categoria> list = service.findByUserId(usuarioID);
 		obsList = FXCollections.observableArrayList(list);
 		tableViewCategoria.setItems(obsList);
 		initEditButtons();

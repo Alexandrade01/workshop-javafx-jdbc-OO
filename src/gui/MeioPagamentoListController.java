@@ -35,6 +35,8 @@ import model.service.MeioPagamentoService;
 public class MeioPagamentoListController implements Initializable, DataChangeListener {
 	
 	private MeioPagamentoService service;
+	
+	private Integer usuarioID;
 
 	@FXML
 	private TableView<MeioPagamento> tableViewMeioPagamento;
@@ -71,7 +73,8 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 	}
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL uri, ResourceBundle rb) {
+		usuarioID = Main.getUsuarioID();
 		initializeNodes();
 		
 	}
@@ -97,7 +100,7 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 
 			throw new IllegalStateException("Service was null");
 		}
-		List<MeioPagamento> list = service.findAll();
+		List<MeioPagamento> list = service.findByUserId(usuarioID);
 		obsList = FXCollections.observableArrayList(list);
 		tableViewMeioPagamento.setItems(obsList);
 		initEditButtons();
