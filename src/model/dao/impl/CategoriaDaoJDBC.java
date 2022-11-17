@@ -168,15 +168,18 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 		try {
 			st = conn.prepareStatement("SELECT descricao FROM categoria WHERE id = ?");
 			
-			st.setInt(1, id);
+			st.setInt(1, 1);
 			
 			rs = st.executeQuery();
 
 			while (rs.next()) {
 
-				Categoria obj = new Categoria();
-				obj = instantiateCategoria(rs);
-				return obj.getDescricao();
+//				Categoria obj = new Categoria();
+//				obj = instantiateCategoria(rs);
+//				return obj.getDescricao();
+				
+				String retorno = rs.getString("descricao");
+				return retorno;
 			}
 
 			return null;

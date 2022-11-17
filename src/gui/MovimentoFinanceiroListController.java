@@ -30,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.entities.Categoria;
 import model.entities.MeioPagamento;
 import model.entities.MovimentoFinanceiro;
 import model.service.CategoriaService;
@@ -46,7 +47,7 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 	private TableView<MovimentoFinanceiro> tableViewMovimentoFinanceiro;
 
 	@FXML
-	private TableColumn<MeioPagamento, Integer> tableColumnId;
+	private TableColumn<MovimentoFinanceiro, Integer> tableColumnId;
 
 	@FXML
 	private TableColumn<MovimentoFinanceiro, String> tableColumnDescricao;
@@ -58,10 +59,10 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 	private TableColumn<MovimentoFinanceiro, Double> tableColumnValor;
 
 	@FXML
-	private TableColumn<MovimentoFinanceiro, String> tableColumnCategoria;
+	private TableColumn<Categoria, String> tableColumnCategoria;
 
 	@FXML
-	private TableColumn<MovimentoFinanceiro, Integer> tableColumnMeioPagamento;
+	private TableColumn<MeioPagamento, Integer> tableColumnMeioPagamento;
 
 	@FXML
 	private Button buttonNew;
@@ -105,10 +106,11 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
 		Utils.formatTableColumnCash(tableColumnValor);
 
-		tableColumnCategoria.setCellValueFactory(new PropertyValueFactory<>("categoriaId"));
-//		Utils.formatTableColumnNameCategoria(tableColumnCategoria, new CategoriaService());
-
-		tableColumnMeioPagamento.setCellValueFactory(new PropertyValueFactory<>("meioPagamentoId"));
+		tableColumnCategoria.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+		Utils.formatTableColumnNameCategoria(tableColumnCategoria, new CategoriaService(), usuarioID );
+		
+		tableColumnMeioPagamento.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+//		Utils.formatTableColumnNameMeioPagamento(tableColumnMeioPagamento, new MeioPagamentoService());
 
 		// serve para que a lista acompanhe ate o final da tela
 		Stage stage = (Stage) Main.getMainScene().getWindow();

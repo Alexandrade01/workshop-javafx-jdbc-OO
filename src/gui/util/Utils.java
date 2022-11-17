@@ -14,8 +14,10 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import model.entities.MeioPagamento;
 import model.entities.MovimentoFinanceiro;
 import model.service.CategoriaService;
+import model.service.MeioPagamentoService;
 
 public class Utils {
 
@@ -130,7 +132,7 @@ public class Utils {
 		});
 	}
 
-	public static <T> void formatTableColumnNameCategoria(TableColumn<T, String> tableColumn, CategoriaService service) {
+	public static <T> void formatTableColumnNameCategoria(TableColumn<T, String> tableColumn, CategoriaService service, Integer userId) {
 		
 		tableColumn.setCellFactory(column -> {
 			TableCell<T, String> cell = new TableCell<T, String>() {
@@ -141,7 +143,7 @@ public class Utils {
 						setText(null);
 					} else {
 						String nomeCategoria = new String();
-						service.findNameByUserId(1);
+						nomeCategoria = service.findNameByUserId(userId);
 						setText(nomeCategoria);
 					}
 				}
@@ -149,5 +151,27 @@ public class Utils {
 			return cell;
 		});
 	}
+
+//	public static <T> void formatTableColumnNameMeioPagamento(TableColumn<T, String> tableColumn, MeioPagamentoService service) {
+//		
+//		tableColumn.setCellFactory(column -> {
+//			TableCell<T, String> cell = new TableCell<T, String>() {
+//				@Override
+//				protected void updateItem(String item, boolean empty) {
+//					super.updateItem(item, empty);
+//					if (empty) {
+//						setText(null);
+//					} else {
+//						String nomeMeioPagamento = new String();
+//						MeioPagamento pagamento = new MeioPagamento();
+//						pagamento = service.findByUserId(null))
+//						nomeMeioPagamento = service.findNameByUserId(1);
+//						setText(nomeMeioPagamento);
+//					}
+//				}
+//			};
+//			return cell;
+//		});
+//	}
 
 }

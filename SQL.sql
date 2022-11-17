@@ -55,7 +55,7 @@ VALUES ('Ale','Andrade','ale90@hotmail.com','senha'),
 insert into categoria (descricao, tipoDeMovimento, idUsuario)
 VALUES ('ROUPAS','DESPESA',1), ('SALARIO','RECEITA',1);
 
-
 #COMANDOS
 SELECT usuario.* from usuario WHERE usuario.nome = 'Ale' and usuario.senha = 'senha';
 
+select descricao from categoria where id = 1
