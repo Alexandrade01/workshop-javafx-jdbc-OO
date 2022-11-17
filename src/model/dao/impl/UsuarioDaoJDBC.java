@@ -117,8 +117,8 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
 		try {
 			st = conn.prepareStatement(
-					"SELECT usuario.* " + "from usuario " + 
-			"WHERE usuario.email = ?");
+					"SELECT * " + "from usuario " + 
+			"WHERE email = ?");
 			
 			st.setString(1, email);
 			

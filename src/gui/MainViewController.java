@@ -16,8 +16,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.entities.MovimentoFinanceiro;
 import model.service.CategoriaService;
 import model.service.MeioPagamentoService;
+import model.service.MovimentoFinanceiroService;
 
 public class MainViewController implements Initializable {
 
@@ -31,6 +33,8 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemCategoria;
 	@FXML
 	private MenuItem menuItemMeioPagamento;
+	@FXML
+	private MenuItem menuItemMovimentoFinanceiro;
 
 	@FXML
 	public void onMenuItemAboutAction() {
@@ -54,6 +58,16 @@ public class MainViewController implements Initializable {
 		loadView("/gui/MeioPagamentoListView.fxml", (MeioPagamentoListController controller) -> {
 
 			controller.setMeioPagamentoService(new MeioPagamentoService());
+			controller.updateTableView();
+		});
+	}
+	
+	@FXML
+	public void onMenuItemMovimentoFinanceiroAction() {
+
+		loadView("/gui/MovimentoFinanceiroListView.fxml", (MovimentoFinanceiroListController controller) -> {
+
+			controller.setMovimentoFinanceiroService(new MovimentoFinanceiroService());
 			controller.updateTableView();
 		});
 	}

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import application.Main;
 import db.DbException;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
@@ -29,6 +30,8 @@ public class MeioPagamentoFormController implements Initializable {
 	private MeioPagamento entity;
 
 	private MeioPagamentoService service;
+	
+	private Integer usuarioId;
 
 	// lista de componentes interessados em alterações
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
@@ -139,7 +142,7 @@ public class MeioPagamentoFormController implements Initializable {
 			throw validationException;
 		}
 		
-		obj.setUsuarioId(1);
+		obj.setUsuarioId(usuarioId);
 
 		return obj;
 	}
@@ -152,6 +155,8 @@ public class MeioPagamentoFormController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		usuarioId = Main.getUsuarioID();
 		
 		initializeNodes();
 	}

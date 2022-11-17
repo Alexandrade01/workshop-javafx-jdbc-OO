@@ -11,6 +11,7 @@ public interface CategoriaDao {
 	void deleteById(Integer id);
 	List<Categoria> findByUserId(Integer id);
 	List<Categoria> findAll();
+	String findNameByUserId(Integer id);
 	
 
 

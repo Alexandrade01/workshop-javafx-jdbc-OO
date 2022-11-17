@@ -36,6 +36,12 @@ public class CategoriaService {
 		return dao.findByUserId(userId);
 		
 	}
+	
+	public String findNameByUserId(Integer userId) {
+		
+		return dao.findNameByUserId(userId);
+		
+	}
 
 
 }

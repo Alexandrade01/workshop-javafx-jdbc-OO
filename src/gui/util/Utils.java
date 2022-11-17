@@ -14,6 +14,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import model.entities.MovimentoFinanceiro;
+import model.service.CategoriaService;
 
 public class Utils {
 
@@ -108,24 +110,6 @@ public class Utils {
 		});
 	}
 	
-	public static <T> void formatTableColumnNomeOfId(TableColumn<T, Integer> tableColumn) {
-		tableColumn.setCellFactory(column -> {
-			TableCell<T, Integer> cell = new TableCell<T, Integer>() {
-				@Override
-				protected void updateItem(Integer item, boolean empty) {
-					super.updateItem(item, empty);
-					if (empty) {
-						setText(null);
-					} else {
-						
-						
-					}
-				}
-			};
-			return cell;
-		});
-	}
-	
 	public static <T> void formatTableColumnCash(TableColumn<T, Double> tableColumn) {
 		tableColumn.setCellFactory(column -> {
 			TableCell<T, Double> cell = new TableCell<T, Double>() {
@@ -139,6 +123,26 @@ public class Utils {
 						Locale localBrasil = new Locale("pt", "BR");
 						valor = NumberFormat.getCurrencyInstance(localBrasil);
 						setText(String.format(valor.format(item)));
+					}
+				}
+			};
+			return cell;
+		});
+	}
+
+	public static <T> void formatTableColumnNameCategoria(TableColumn<T, String> tableColumn, CategoriaService service) {
+		
+		tableColumn.setCellFactory(column -> {
+			TableCell<T, String> cell = new TableCell<T, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty) {
+						setText(null);
+					} else {
+						String nomeCategoria = new String();
+						service.findNameByUserId(1);
+						setText(nomeCategoria);
 					}
 				}
 			};

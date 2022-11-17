@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
       <VBox prefHeight="340.0" prefWidth="460.0">
          <children>
@@ -24,6 +24,11 @@
                   <Menu mnemonicParsing="false" text="Categoria">
                      <items>
                         <MenuItem fx:id="menuItemCategoria" mnemonicParsing="false" onAction="#onMenuItemCategoriaAction" text="Editar/Alterar" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Movimentos">
+                     <items>
+                        <MenuItem fx:id="menuItemMovimentoFinanceiro" mnemonicParsing="false" onAction="#onMenuItemMovimentoFinanceiroAction" text="Movimentações financeiras" />
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="Help">

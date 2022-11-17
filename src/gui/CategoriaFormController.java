@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import application.Main;
 import db.DbException;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
@@ -35,6 +36,8 @@ public class CategoriaFormController implements Initializable {
 	private Categoria entity;
 
 	private CategoriaService service;
+	
+	private Integer usuarioId;
 	
 	private ObservableList<TipoDeMovimento> obsList;
 
@@ -142,7 +145,7 @@ public class CategoriaFormController implements Initializable {
 			throw validationException;
 		}
 		
-		obj.setIdUsuario(1);
+		obj.setIdUsuario(usuarioId);
 
 		return obj;
 	}
@@ -159,6 +162,9 @@ public class CategoriaFormController implements Initializable {
 	}
 	
 	private void initializeNodes() {
+		
+		usuarioId = Main.getUsuarioID();
+		
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtDescricao, 70);
 		Constraints.setTextFieldInteger(txtIdUsuario);

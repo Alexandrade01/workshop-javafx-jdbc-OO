@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="405.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MovimentoFinanceiroListController">
+   <children>
+      <Label prefHeight="24.0" prefWidth="242.0" text="Registros de movimentos financeiros">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="buttonNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="26.0" prefWidth="158.0" text="Nova movimentação">
+               <effect>
+                  <SepiaTone level="0.53" />
+               </effect></Button>
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewMovimentoFinanceiro" prefHeight="340.0" prefWidth="534.0">
+        <columns>
+          <TableColumn fx:id="tableColumnId" prefWidth="90.0" text="ID" />
+            <TableColumn fx:id="tableColumnData" prefWidth="90.0" text="Data" />
+          <TableColumn fx:id="tableColumnDescricao" prefWidth="125.0" text="Descrição" />
+            <TableColumn fx:id="tableColumnValor" prefWidth="100.0" text="Valor" />
+            <TableColumn fx:id="tableColumnCategoria" prefWidth="100.0" text="Categoria" />
+            <TableColumn fx:id="tableColumnMeioPagamento" prefWidth="115.20001220703125" text="Tipo de pagamento" />
+            <TableColumn fx:id="tableColumnEdit" prefWidth="75.199951171875" />
+            <TableColumn fx:id="tableColumnRemove" prefWidth="70.0" />
+        </columns>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant>
+                     <color>
+                        <Color red="0.42916178703308105" green="0.8100428581237793" blue="0.9052631855010986" />
+                     </color>
+                  </Light.Distant>
+               </light>
+            </Lighting>
+         </effect>
+      </TableView>
+   </children>
+   <effect>
+      <Lighting diffuseConstant="1.7" specularConstant="0.37" specularExponent="24.77" surfaceScale="0.03">
+         <bumpInput>
+            <Shadow />
+         </bumpInput>
+         <light>
+            <Light.Distant />
+         </light>
+      </Lighting>
+   </effect>
+</VBox>

@@ -19,18 +19,6 @@ PRIMARY KEY (id),
 FOREIGN KEY (usuarioId) REFERENCES usuario (id)
 );
 
-create table transacao(
-id int(11) NOT NULL AUTO_INCREMENT,
-dataTransacao DATETIME NOT NULL,
-tipoEnum varchar(100) NOT NULL,
-descricao varchar(100) NOT NULL,
-valorTotal double NOT NULL,
-statusEnum varchar(100) NOT NULL,
-idUsuarioSolicitante int(11) NOT NULL,
-PRIMARY KEY (id),
-FOREIGN KEY (idUsuarioSolicitante) REFERENCES usuario (id)
-);
-select * from usuario
 create table categoria (
 id INT(11) NOT NULL AUTO_INCREMENT,
 descricao VARCHAR(100) NOT NULL,
@@ -40,6 +28,24 @@ idUsuario int(11) NOT NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (idUsuario) REFERENCES usuario (id)
 );
+
+create table movimentofinanceiro(
+id int(11) NOT NULL AUTO_INCREMENT,
+descricao varchar(100) NOT NULL,
+dataTransacao DATE NOT NULL,
+valor double NOT NULL,
+categoriaId int(11) NOT NULL,
+meiopagamentoId int(11) NOT NULL,
+usuarioId int(11) NOT NULL,
+
+PRIMARY KEY (id),
+FOREIGN KEY (categoriaId) REFERENCES categoria (id),
+FOREIGN KEY (meiopagamentoId) REFERENCES meiopagamento (id),
+FOREIGN  KEY (usuarioId) REFERENCES usuario (id)
+);
+insert into movimentofinanceiro (descricao, dataTransacao, valor, categoriaId, meiopagamentoId, usuarioId  ) 
+VALUES ('teste','1998-04-21 00:00:00',2020,1,1,1);
+
 
 INSERT INTO usuario (nome, sobrenome, email, senha)
 VALUES ('Ale','Andrade','ale90@hotmail.com','senha'),

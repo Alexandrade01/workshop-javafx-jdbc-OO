@@ -114,10 +114,7 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 			while(rs.next()) {
 				
 				Categoria obj = new Categoria();
-				obj.setId(rs.getInt("id"));
-				obj.setDescricao(rs.getString("descricao"));
-				obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("tipoDeMovimento")));
-				obj.setIdUsuario(rs.getInt("idUsuario"));
+				obj = instantiateCategoria(rs);
 				list.add(obj);
 			}
 			
@@ -148,14 +145,41 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 			while (rs.next()) {
 
 				Categoria obj = new Categoria();
-				obj.setId(rs.getInt("id"));
-				obj.setDescricao(rs.getString("descricao"));
-				obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("tipoDeMovimento")));
-				obj.setIdUsuario(rs.getInt("idUsuario"));
+				obj = instantiateCategoria(rs);
 				list.add(obj);
 			}
 
 			return list;
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+	
+	@Override
+	public String findNameByUserId(Integer id) {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			st = conn.prepareStatement("SELECT descricao FROM categoria WHERE id = ?");
+			
+			st.setInt(1, id);
+			
+			rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				Categoria obj = new Categoria();
+				obj = instantiateCategoria(rs);
+				return obj.getDescricao();
+			}
+
+			return null;
 
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
@@ -173,5 +197,7 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 		obj.setIdUsuario(rs.getInt("idUsuario"));
 		return obj;
 	}
+
+	
 
 }
