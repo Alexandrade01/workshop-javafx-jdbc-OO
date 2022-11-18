@@ -59,3 +59,16 @@ VALUES ('ROUPAS','DESPESA',1), ('SALARIO','RECEITA',1);
 SELECT usuario.* from usuario WHERE usuario.nome = 'Ale' and usuario.senha = 'senha';
 
 select descricao from categoria where id = 1
+
+SELECT movimentofinanceiro.*, categoria.*, meiopagamento.*
+FROM movimentofinanceiro 
+INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id
+INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id
+WHERE movimentofinanceiro.id = 1
+
+
+SELECT movimentofinanceiro.* , categoria.descricao as CATNAME , meiopagamento.descricao as MPNAME 
+FROM movimentofinanceiro 
+INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id 
+INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id 
+WHERE movimentofinanceiro.id = 1

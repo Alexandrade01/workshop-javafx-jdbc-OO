@@ -121,7 +121,7 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				MeioPagamento obj = instantiateCategoria(rs);
+				MeioPagamento obj = instantiateMeioPagamento(rs);
 				return obj;
 			}
 			return null;
@@ -133,17 +133,6 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
-	}
-
-	private MeioPagamento instantiateCategoria(ResultSet rs) throws SQLException {
-		
-		MeioPagamento obj = new MeioPagamento();
-		obj.setId(rs.getInt("id"));
-		obj.setDescricao(rs.getString("descricao"));
-		obj.setSaldo(rs.getDouble("saldo"));
-		obj.setUsuarioId(rs.getInt("usuarioId"));
-		return obj;
-
 	}
 
 	@Override
@@ -214,6 +203,17 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+	
+	private MeioPagamento instantiateMeioPagamento(ResultSet rs) throws SQLException {
+		
+		MeioPagamento obj = new MeioPagamento();
+		obj.setId(rs.getInt("id"));
+		obj.setDescricao(rs.getString("descricao"));
+		obj.setSaldo(rs.getDouble("saldo"));
+		obj.setUsuarioId(rs.getInt("usuarioId"));
+		return obj;
+
 	}
 
 }

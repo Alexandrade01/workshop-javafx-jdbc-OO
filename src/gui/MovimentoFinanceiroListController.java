@@ -59,10 +59,10 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 	private TableColumn<MovimentoFinanceiro, Double> tableColumnValor;
 
 	@FXML
-	private TableColumn<Categoria, String> tableColumnCategoria;
+	private TableColumn<MovimentoFinanceiro, Categoria> tableColumnCategoria;
 
 	@FXML
-	private TableColumn<MeioPagamento, Integer> tableColumnMeioPagamento;
+	private TableColumn<MovimentoFinanceiro, MeioPagamento> tableColumnMeioPagamento;
 
 	@FXML
 	private Button buttonNew;
@@ -106,10 +106,10 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 		tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
 		Utils.formatTableColumnCash(tableColumnValor);
 
-		tableColumnCategoria.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-		Utils.formatTableColumnNameCategoria(tableColumnCategoria, new CategoriaService(), usuarioID );
+		tableColumnCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+//		Utils.formatTableColumnNameCategoria(tableColumnCategoria, new CategoriaService(), usuarioID );
 		
-		tableColumnMeioPagamento.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+		tableColumnMeioPagamento.setCellValueFactory(new PropertyValueFactory<>("meioPagamento"));
 //		Utils.formatTableColumnNameMeioPagamento(tableColumnMeioPagamento, new MeioPagamentoService());
 
 		// serve para que a lista acompanhe ate o final da tela

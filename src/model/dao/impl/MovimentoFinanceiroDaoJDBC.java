@@ -4,18 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DB;
 import db.DbException;
 import model.dao.MovimentoFinanceiroDao;
+import model.entities.Categoria;
 import model.entities.MeioPagamento;
 import model.entities.MovimentoFinanceiro;
+import model.enumerations.TipoDeMovimento;
 
-public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao{
-	
+public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
+
 	private Connection conn;
 
 	public MovimentoFinanceiroDaoJDBC(Connection conn) {
@@ -24,80 +27,88 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao{
 
 	@Override
 	public void insert(MovimentoFinanceiro obj) {
-		
-		PreparedStatement st = null;
-		try {
-			st = conn.prepareStatement(
-					"INSERT INTO movimentofinanceiro "
-					+ "(descricao, dataTransacao, valor, categoriaId, meiopagamentoId, usuarioId) "
-					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?)",
-					Statement.RETURN_GENERATED_KEYS);
-			
-			st.setString(1, obj.getDescricao());
-			st.setDate(2, new java.sql.Date(obj.getDataTransacao().getTime()));
-			st.setDouble(3, obj.getValor());
-			st.setInt(4, obj.getCategoriaId());
-			st.setInt(5, obj.getMeioPagamentoId());
-			st.setInt(6, obj.getUsuarioId());
-			
-			int rowsAffected = st.executeUpdate();
-			
-			if (rowsAffected > 0) {
-				ResultSet rs = st.getGeneratedKeys();
-				if (rs.next()) {
-					int id = rs.getInt(1);
-					obj.setId(id);
-				}
-				DB.closeResultSet(rs);
-			}
-			else {
-				throw new DbException("Unexpected error! No rows affected!");
-			}
-		}
-		catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		}
-		finally {
-			DB.closeStatement(st);
-		}
-		
+
+//		PreparedStatement st = null;
+//		try {
+//			st = conn.prepareStatement("INSERT INTO movimentofinanceiro "
+//					+ "(descricao, dataTransacao, valor, categoriaId, meiopagamentoId, usuarioId) " + "VALUES "
+//					+ "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+//
+//			st.setString(1, obj.getDescricao());
+//			st.setDate(2, new java.sql.Date(obj.getDataTransacao().getTime()));
+//			st.setDouble(3, obj.getValor());
+//			st.setInt(4, obj.getCategoriaId());
+//			st.setInt(5, obj.getMeioPagamentoId());
+//			st.setInt(6, obj.getUsuarioId());
+//
+//			int rowsAffected = st.executeUpdate();
+//
+//			if (rowsAffected > 0) {
+//				ResultSet rs = st.getGeneratedKeys();
+//				if (rs.next()) {
+//					int id = rs.getInt(1);
+//					obj.setId(id);
+//				}
+//				DB.closeResultSet(rs);
+//			} else {
+//				throw new DbException("Unexpected error! No rows affected!");
+//			}
+//		} catch (SQLException e) {
+//			throw new DbException(e.getMessage());
+//		} finally {
+//			DB.closeStatement(st);
+//		}
+
 	}
 
 	@Override
 	public List<MovimentoFinanceiro> findByUserId(Integer id) {
-		
+
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement(
-					"SELECT * FROM movimentofinanceiro WHERE id = ?" );
-			
-			st.setInt(1 , id);
-			
+			st = conn.prepareStatement("SELECT * , categoria.descricao as CATNAME , meiopagamento.descricao as MPNAME "
+					+ "			FROM movimentofinanceiro "
+					+ "			INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id "
+					+ "			INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id "
+					+ "			WHERE movimentofinanceiro.id = ?");
+
+			st.setInt(1, id);
+
 			rs = st.executeQuery();
-			
+
 			List<MovimentoFinanceiro> list = new ArrayList<>();
-			
+			Map<Integer, Categoria> mapCategoria = new HashMap<>();
+			Map<Integer, MeioPagamento> mapMeioPagamento = new HashMap<>();
+
 			while (rs.next()) {
 				
-				MovimentoFinanceiro mf = new MovimentoFinanceiro();
-				mf.setId(rs.getInt("id"));
-				mf.setDescricao(rs.getString("descricao"));
-				mf.setDataTransacao(new java.util.Date(rs.getTimestamp("dataTransacao").getTime()));
-				mf.setValor(rs.getDouble("valor"));
-				mf.setCategoriaId(rs.getInt("categoriaId"));
-				mf.setMeioPagamentoId(rs.getInt("meiopagamentoId"));
-				mf.setUsuarioId(rs.getInt("usuarioId"));
+				Categoria cat =  mapCategoria.get(rs.getInt("categoriaId"));
+				
+				if(cat == null) {
+					
+					cat = instantiateCategoria(rs);
+					mapCategoria.put(rs.getInt("categoriaId"), cat);
+					
+				}
+				
+				MeioPagamento mp = mapMeioPagamento.get(rs.getInt("meiopagamentoId"));
+				
+				if(mp == null) {
+					
+					mp = instantiateMeioPagamento(rs);
+					mapMeioPagamento.put(rs.getInt("meiopagamentoId"), mp);
+					
+				}
+				
+				MovimentoFinanceiro mf = instantiateMovimentoFinanceiro(rs, cat, mp);
 
 				list.add(mf);
 			}
 			return list;
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
@@ -105,22 +116,56 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao{
 
 	@Override
 	public void deleteById(Integer id) {
-		
+
 		PreparedStatement st = null;
-		
+
 		try {
 			st = conn.prepareStatement("DELETE FROM movimentofinanceiro WHERE id = ?");
-			
+
 			st.setInt(1, id);
-			
+
 			st.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
+	}
+	
+	private MovimentoFinanceiro instantiateMovimentoFinanceiro(ResultSet rs, Categoria cat, MeioPagamento mp) throws SQLException {
+		
+		MovimentoFinanceiro mf = new MovimentoFinanceiro();
+		mf.setId(rs.getInt("id"));
+		mf.setDescricao(rs.getString("descricao"));
+		mf.setDataTransacao(new java.util.Date(rs.getTimestamp("dataTransacao").getTime()));
+		mf.setValor(rs.getDouble("valor"));
+		mf.setCategoria(cat);
+		mf.setMeioPagamento(mp);
+		mf.setUsuario(rs.getInt("usuarioId"));
+		
+		return mf;
+		
+	}
+	
+	private Categoria instantiateCategoria(ResultSet rs) throws SQLException {
+		Categoria obj = new Categoria();
+		obj.setId(rs.getInt("categoriaId"));
+		obj.setDescricao(rs.getString("CATNAME"));
+		obj.setTipoDeMovimento(null);
+		obj.setIdUsuario(null);
+		return obj;
+	}
+	
+	private MeioPagamento instantiateMeioPagamento(ResultSet rs) throws SQLException {
+		
+		MeioPagamento obj = new MeioPagamento();
+		obj.setId(rs.getInt("meiopagamentoId"));
+		obj.setDescricao(rs.getString("MPNAME"));
+		obj.setSaldo(null);
+		obj.setUsuarioId(null);
+		return obj;
+
 	}
 
 }

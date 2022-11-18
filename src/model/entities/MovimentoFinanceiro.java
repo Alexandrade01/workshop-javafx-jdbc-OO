@@ -11,9 +11,9 @@ public class MovimentoFinanceiro implements Serializable {
 	private String descricao;
 	private Date dataTransacao;
 	private Double valor;
-	private Integer categoriaId;
-	private Integer meioPagamentoId;
-	private Integer usuarioId;
+	private Categoria categoria;
+	private MeioPagamento meioPagamento;
+	private Integer usuario;
 	
 	public Integer getId() {
 		return id;
@@ -39,39 +39,39 @@ public class MovimentoFinanceiro implements Serializable {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public Integer getCategoriaId() {
-		return categoriaId;
+	public Categoria getCategoria() {
+		return categoria;
 	}
-	public void setCategoriaId(Integer categoriaId) {
-		this.categoriaId = categoriaId;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
-	public Integer getMeioPagamentoId() {
-		return meioPagamentoId;
+	public MeioPagamento getMeioPagamento() {
+		return meioPagamento;
 	}
-	public void setMeioPagamentoId(Integer meioPagamentoId) {
-		this.meioPagamentoId = meioPagamentoId;
+	public void setMeioPagamento(MeioPagamento meioPagamento) {
+		this.meioPagamento = meioPagamento;
 	}
-	public Integer getUsuarioId() {
-		return usuarioId;
+	public Integer getUsuario() {
+		return usuario;
 	}
-	public void setUsuarioId(Integer usuarioId) {
-		this.usuarioId = usuarioId;
+	public void setUsuario(Integer usuario) {
+		this.usuario = usuario;
 	}
+
 	
-	public MovimentoFinanceiro(Integer id, String descricao, Date dataTransacao, Double valor, Integer categoriaId,
-			Integer meioPagamentoId, Integer usuarioId) {
+	public MovimentoFinanceiro() {
+		super();
+	}
+	public MovimentoFinanceiro(Integer id, String descricao, Date dataTransacao, Double valor, Categoria categoria,
+			MeioPagamento meioPagamento, Integer usuario) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.dataTransacao = dataTransacao;
 		this.valor = valor;
-		this.categoriaId = categoriaId;
-		this.meioPagamentoId = meioPagamentoId;
-		this.usuarioId = usuarioId;
-	}
-	
-	public MovimentoFinanceiro() {
-		super();
+		this.categoria= categoria;
+		this.meioPagamento = meioPagamento;
+		this.usuario = usuario;
 	}
 
 }

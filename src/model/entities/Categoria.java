@@ -3,7 +3,7 @@ package model.entities;
 import model.enumerations.TipoDeMovimento;
 
 public class Categoria {
-	
+
 	private Integer id;
 	private String descricao;
 	private TipoDeMovimento tipoDeMovimento;
@@ -45,6 +45,11 @@ public class Categoria {
 	
 	public Categoria() {
 		super();
+	}
+	
+	@Override
+	public String toString() {
+		return descricao;
 	}
 
 }

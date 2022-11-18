@@ -65,4 +65,11 @@ public class MeioPagamento implements Serializable {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return descricao;
+	}
+	
+	
+
 }
