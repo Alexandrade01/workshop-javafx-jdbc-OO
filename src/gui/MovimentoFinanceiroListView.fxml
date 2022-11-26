@@ -29,10 +29,15 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="buttonNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="26.0" prefWidth="158.0" text="Nova movimentação">
+          <Button fx:id="buttonNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="26.0" prefWidth="158.0" text="Novas entradas">
                <effect>
                   <SepiaTone level="0.53" />
                </effect></Button>
+            <Button fx:id="buttonNew1" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="26.0" prefWidth="169.0" text="Novas saídas">
+               <effect>
+                  <SepiaTone level="0.53" />
+               </effect>
+            </Button>
         </items>
       </ToolBar>
       <TableView fx:id="tableViewMovimentoFinanceiro" prefHeight="340.0" prefWidth="534.0">

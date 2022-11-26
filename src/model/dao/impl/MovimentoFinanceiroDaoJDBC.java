@@ -9,13 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mysql.jdbc.Statement;
+
 import db.DB;
 import db.DbException;
 import model.dao.MovimentoFinanceiroDao;
 import model.entities.Categoria;
 import model.entities.MeioPagamento;
 import model.entities.MovimentoFinanceiro;
-import model.enumerations.TipoDeMovimento;
 
 public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 
@@ -28,36 +29,36 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 	@Override
 	public void insert(MovimentoFinanceiro obj) {
 
-//		PreparedStatement st = null;
-//		try {
-//			st = conn.prepareStatement("INSERT INTO movimentofinanceiro "
-//					+ "(descricao, dataTransacao, valor, categoriaId, meiopagamentoId, usuarioId) " + "VALUES "
-//					+ "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-//
-//			st.setString(1, obj.getDescricao());
-//			st.setDate(2, new java.sql.Date(obj.getDataTransacao().getTime()));
-//			st.setDouble(3, obj.getValor());
-//			st.setInt(4, obj.getCategoriaId());
-//			st.setInt(5, obj.getMeioPagamentoId());
-//			st.setInt(6, obj.getUsuarioId());
-//
-//			int rowsAffected = st.executeUpdate();
-//
-//			if (rowsAffected > 0) {
-//				ResultSet rs = st.getGeneratedKeys();
-//				if (rs.next()) {
-//					int id = rs.getInt(1);
-//					obj.setId(id);
-//				}
-//				DB.closeResultSet(rs);
-//			} else {
-//				throw new DbException("Unexpected error! No rows affected!");
-//			}
-//		} catch (SQLException e) {
-//			throw new DbException(e.getMessage());
-//		} finally {
-//			DB.closeStatement(st);
-//		}
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("INSERT INTO movimentofinanceiro "
+					+ "(descricao, dataTransacao, valor, categoriaId, meiopagamentoId, usuarioId) " + "VALUES "
+					+ "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
+			st.setString(1, obj.getDescricao());
+			st.setDate(2, new java.sql.Date(obj.getDataTransacao().getTime()));
+			st.setDouble(3, obj.getValor());
+			st.setInt(4, obj.getCategoria().getId());
+			st.setInt(5, obj.getMeioPagamento().getId());
+			st.setInt(6, obj.getUsuario());
+
+			int rowsAffected = st.executeUpdate();
+
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setId(id);
+				}
+				DB.closeResultSet(rs);
+			} else {
+				throw new DbException("Unexpected error! No rows affected!");
+			}
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 
 	}
 
@@ -71,7 +72,7 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 					+ "			FROM movimentofinanceiro "
 					+ "			INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id "
 					+ "			INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id "
-					+ "			WHERE movimentofinanceiro.id = ?");
+					+ "			WHERE movimentofinanceiro.usuarioId = ?");
 
 			st.setInt(1, id);
 
@@ -166,6 +167,33 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 		obj.setUsuarioId(null);
 		return obj;
 
+	}
+
+	@Override
+	public void update(MovimentoFinanceiro entity) {
+		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"UPDATE movimentofinanceiro "
+					+ "SET descricao = ?, dataTransacao = ?, valor = ?, categoriaId = ?, meiopagamentoId = ?, usuarioId = ? "
+					+ "WHERE Id = ?");
+			st.setString(1, entity.getDescricao());
+			st.setDate(2, new java.sql.Date(entity.getDataTransacao().getTime()));
+			st.setDouble(3, entity.getValor());
+			st.setInt(4, entity.getCategoria().getId());
+			st.setInt(5, entity.getMeioPagamento().getId());
+			st.setInt(6, entity.getId());
+			
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+		
 	}
 
 }

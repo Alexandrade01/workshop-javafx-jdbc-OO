@@ -20,12 +20,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -107,10 +107,8 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 		Utils.formatTableColumnCash(tableColumnValor);
 
 		tableColumnCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-//		Utils.formatTableColumnNameCategoria(tableColumnCategoria, new CategoriaService(), usuarioID );
 		
 		tableColumnMeioPagamento.setCellValueFactory(new PropertyValueFactory<>("meioPagamento"));
-//		Utils.formatTableColumnNameMeioPagamento(tableColumnMeioPagamento, new MeioPagamentoService());
 
 		// serve para que a lista acompanhe ate o final da tela
 		Stage stage = (Stage) Main.getMainScene().getWindow();
@@ -143,7 +141,8 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 			// populando o form com os meios de pagamento
 			MovimentoFinanceiroFormController controller = loader.getController();
 			controller.setMovimentoPagamento(obj);
-			controller.setServices(new MeioPagamentoService());
+			controller.setServices(new MovimentoFinanceiroService(), new CategoriaService(), new MeioPagamentoService());
+			controller.loadAssociatedObjects();
 
 			// adiciona um item na lista de listeners portanto sera chamado para atualizar a
 			// lista
