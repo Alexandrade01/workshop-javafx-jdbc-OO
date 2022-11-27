@@ -10,5 +10,6 @@ public interface MovimentoFinanceiroDao {
 	List<MovimentoFinanceiro> findByUserId(Integer id);
 	void deleteById(Integer id);
 	void update(MovimentoFinanceiro entity);
+	void updateSaldo(Double saldo, Integer id);
 
 }

@@ -29,15 +29,10 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="buttonNew" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="26.0" prefWidth="158.0" text="Novas entradas">
+          <Button fx:id="buttonNewDeposit" mnemonicParsing="false" onAction="#onBtNewActionEntradas" prefHeight="26.0" prefWidth="158.0" text="Novas entradas">
                <effect>
                   <SepiaTone level="0.53" />
                </effect></Button>
-            <Button fx:id="buttonNew1" mnemonicParsing="false" onAction="#onBtNewAction" prefHeight="26.0" prefWidth="169.0" text="Novas saídas">
-               <effect>
-                  <SepiaTone level="0.53" />
-               </effect>
-            </Button>
         </items>
       </ToolBar>
       <TableView fx:id="tableViewMovimentoFinanceiro" prefHeight="340.0" prefWidth="534.0">
@@ -48,7 +43,6 @@
             <TableColumn fx:id="tableColumnValor" prefWidth="100.0" text="Valor" />
             <TableColumn fx:id="tableColumnCategoria" prefWidth="100.0" text="Categoria" />
             <TableColumn fx:id="tableColumnMeioPagamento" prefWidth="115.20001220703125" text="Tipo de pagamento" />
-            <TableColumn fx:id="tableColumnEdit" prefWidth="75.199951171875" />
             <TableColumn fx:id="tableColumnRemove" prefWidth="70.0" />
         </columns>
          <effect>

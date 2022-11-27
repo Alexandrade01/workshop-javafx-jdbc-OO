@@ -32,4 +32,10 @@ public class MovimentoFinanceiroService {
 		
 	}
 
+	public void updateSaldo(Double saldo, Integer id) {
+		
+		dao.updateSaldo(saldo,id);
+		
+	}
+
 }

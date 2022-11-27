@@ -10,8 +10,9 @@ public interface CategoriaDao {
 	void update (Categoria dao);
 	void deleteById(Integer id);
 	List<Categoria> findByUserId(Integer id);
-	List<Categoria> findAll();
+	List<Categoria> findAllDeposit();
 	String findNameByUserId(Integer id);
+
 	
 
 

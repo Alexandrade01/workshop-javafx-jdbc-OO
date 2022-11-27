@@ -130,13 +130,13 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 	}
 
 	@Override
-	public List<Categoria> findAll() {
+	public List<Categoria> findAllDeposit() {
 
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		try {
-			st = conn.prepareStatement("SELECT * FROM categoria ORDER BY id");
+			st = conn.prepareStatement("SELECT * FROM categoria WHERE tipoDeMovimento = 'RECEITA' ORDER BY id");
 
 			rs = st.executeQuery();
 

@@ -11,9 +11,9 @@ public class CategoriaService {
 	//configuracao de banco de dados
 	private CategoriaDao dao = DaoFactory.createCategoriaDao();
 
-	public List<Categoria> findAll() {
+	public List<Categoria> findAllDeposit() {
 
-		return dao.findAll();
+		return dao.findAllDeposit();
 	}
 
 	public void saveOrUpdate(Categoria obj) {
@@ -42,6 +42,5 @@ public class CategoriaService {
 		return dao.findNameByUserId(userId);
 		
 	}
-
 
 }

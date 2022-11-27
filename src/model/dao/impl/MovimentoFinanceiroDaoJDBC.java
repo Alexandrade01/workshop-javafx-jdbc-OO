@@ -68,7 +68,7 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * , categoria.descricao as CATNAME , meiopagamento.descricao as MPNAME "
+			st = conn.prepareStatement("SELECT * , categoria.descricao as CATNAME , meiopagamento.descricao as MPNAME, meiopagamento.saldo as MPSALDO "
 					+ "			FROM movimentofinanceiro "
 					+ "			INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id "
 					+ "			INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id "
@@ -163,7 +163,7 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 		MeioPagamento obj = new MeioPagamento();
 		obj.setId(rs.getInt("meiopagamentoId"));
 		obj.setDescricao(rs.getString("MPNAME"));
-		obj.setSaldo(null);
+		obj.setSaldo(rs.getDouble("MPSALDO"));
 		obj.setUsuarioId(null);
 		return obj;
 
@@ -184,6 +184,27 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 			st.setInt(4, entity.getCategoria().getId());
 			st.setInt(5, entity.getMeioPagamento().getId());
 			st.setInt(6, entity.getId());
+			
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+		
+	}
+
+	@Override
+	public void updateSaldo(Double saldo, Integer id) {
+		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("CALL diminuiCash(?, ?)");
+			st.setDouble(1, saldo);
+			st.setInt(2, id);
+
 			
 			st.executeUpdate();
 		}

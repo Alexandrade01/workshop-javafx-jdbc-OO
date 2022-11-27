@@ -40,7 +40,7 @@ import model.service.CategoriaService;
 import model.service.MeioPagamentoService;
 import model.service.MovimentoFinanceiroService;
 
-public class MovimentoFinanceiroFormController implements Initializable {
+public class MovimentoFinanceiroEntradasFormController implements Initializable {
 
 	private MovimentoFinanceiro entity;
 
@@ -285,7 +285,7 @@ public class MovimentoFinanceiroFormController implements Initializable {
 
 			throw new IllegalStateException("Categoria service é nulo ");
 		}
-		List<Categoria> listCategoria = categoriaService.findAll();
+		List<Categoria> listCategoria = categoriaService.findAllDeposit();
 		obsListCategoria = FXCollections.observableArrayList(listCategoria);
 		comboBoxCategoria.setItems(obsListCategoria);
 		

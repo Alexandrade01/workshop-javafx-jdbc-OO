@@ -64,11 +64,26 @@ SELECT movimentofinanceiro.*, categoria.*, meiopagamento.*
 FROM movimentofinanceiro 
 INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id
 INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id
-WHERE movimentofinanceiro.id = 1
+WHERE movimentofinanceiro.id = 1;
 
-
+select * from categoria where tipoDeMovimento = 'RECEITA' order by id;
 SELECT movimentofinanceiro.* , categoria.descricao as CATNAME , meiopagamento.descricao as MPNAME 
 FROM movimentofinanceiro 
 INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id 
 INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id 
-WHERE movimentofinanceiro.id = 1
+WHERE movimentofinanceiro.usuarioId = 1
+
+
+
+
+
+DELIMITER $$
+CREATE PROCEDURE diminuiCash(diminui double, idmeiopagamento int)
+BEGIN
+   UPDATE meiopagamento SET saldo = (saldo - diminui) where id = idmeiopagamento ;
+END $$
+DELIMITER ;
+
+select * from meiopagamento
+
+CALL diminuiCash(500,2);

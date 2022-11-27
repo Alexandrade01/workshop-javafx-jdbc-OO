@@ -65,10 +65,7 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 	private TableColumn<MovimentoFinanceiro, MeioPagamento> tableColumnMeioPagamento;
 
 	@FXML
-	private Button buttonNew;
-
-	@FXML
-	private TableColumn<MovimentoFinanceiro, MovimentoFinanceiro> tableColumnEdit;
+	private Button buttonNewDeposit;
 
 	@FXML
 	private TableColumn<MovimentoFinanceiro, MovimentoFinanceiro> tableColumnRemove;
@@ -76,10 +73,10 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 	private ObservableList<MovimentoFinanceiro> obsList;
 
 	@FXML
-	public void onBtNewAction(ActionEvent event) {
+	public void onBtNewActionEntradas(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		MovimentoFinanceiro obj = new MovimentoFinanceiro();
-		createDialogForm(obj, "/gui/MovimentoFinanceiroFormView.fxml", parentStage);
+		createDialogForm(obj, "/gui/MovimentoFinanceiroEntradasFormView.fxml", parentStage);
 	}
 
 	public void setMovimentoFinanceiroService(MovimentoFinanceiroService movimentoFinanceiroService) {
@@ -125,7 +122,6 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 		List<MovimentoFinanceiro> list = service.findByUserId(usuarioID);
 		obsList = FXCollections.observableArrayList(list);
 		tableViewMovimentoFinanceiro.setItems(obsList);
-		initEditButtons();
 		initRemoveButtons();
 
 	}
@@ -139,7 +135,7 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 			Pane pane = loader.load();
 
 			// populando o form com os meios de pagamento
-			MovimentoFinanceiroFormController controller = loader.getController();
+			MovimentoFinanceiroEntradasFormController controller = loader.getController();
 			controller.setMovimentoPagamento(obj);
 			controller.setServices(new MovimentoFinanceiroService(), new CategoriaService(), new MeioPagamentoService());
 			controller.loadAssociatedObjects();
@@ -203,29 +199,6 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 		});
 	}
 
-	private void initEditButtons() {
-
-		tableColumnEdit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEdit.setCellFactory(param -> new TableCell<MovimentoFinanceiro, MovimentoFinanceiro>() {
-			private final Button button = new Button("Editar");
-
-			@Override
-			protected void updateItem(MovimentoFinanceiro obj, boolean empty) {
-				super.updateItem(obj, empty);
-				if (obj == null) {
-					setGraphic(null);
-					return;
-				}
-				setGraphic(button);
-				button.setPrefWidth(80);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/MovimentoFinanceiroFormView.fxml", Utils.currentStage(event)));
-
-			}
-		});
-
-	}
-
 	private void removeEntity(MovimentoFinanceiro obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que você quer deletar ?");
 
@@ -235,7 +208,13 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 			}
 
 			try {
+				if(obj.getValor() > obj.getMeioPagamento().getSaldo()) {
+					
+					throw new DbIntegrityException("Não é permitido saldo negativo ! Organize suas fincanças !");
+					
+				}
 				service.remove(obj);
+				service.updateSaldo(obj.getValor(),obj.getMeioPagamento().getId());
 				updateTableView();
 			} catch (DbIntegrityException e) {
 
