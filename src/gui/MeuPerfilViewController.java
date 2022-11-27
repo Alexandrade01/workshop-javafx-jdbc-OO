@@ -33,14 +33,11 @@ public class MeuPerfilViewController implements Initializable {
 		MeioPagamentoService service = new MeioPagamentoService();
 		totalreceita = service.totalReceitasById(Main.getUsuarioID());
 		totaldespesa = service.totalDespesasById(Main.getUsuarioID());
-		
+
 		meuSaldo = service.meuSaldoById(Main.getUsuarioID());
 		textSaldo.setText("R$ " + String.format("%.2f", meuSaldo));
-		
-		createPieChart();
-		
-		
 
+		createPieChart();
 
 	}
 

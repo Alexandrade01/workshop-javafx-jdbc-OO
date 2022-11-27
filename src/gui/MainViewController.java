@@ -32,31 +32,29 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemMovimentoFinanceiro;
 	@FXML
 	private MenuItem menuItemAbout;
-	
-
 
 	@FXML
 	public void onMenuItemAboutAction() {
 		loadView("/gui/AboutView.fxml", x -> {
 		});
 	}
-	
+
 	@FXML
 	public void onMenuItemMeuPerfilAction() {
 		loadView("/gui/MeuPerfilView.fxml", x -> {
 		});
 	}
-	
+
 	@FXML
 	public void onMenuItemCategoriaAction() {
-		
+
 		loadView("/gui/CategoriaListView.fxml", (CategoriaListController controller) -> {
 
 			controller.setCategoriaService(new CategoriaService());
 			controller.updateTableView();
 		});
 	}
-	
+
 	@FXML
 	public void onMenuItemMeioPagamentoAction() {
 
@@ -66,7 +64,7 @@ public class MainViewController implements Initializable {
 			controller.updateTableView();
 		});
 	}
-	
+
 	@FXML
 	public void onMenuItemMovimentoFinanceiroAction() {
 
@@ -79,8 +77,6 @@ public class MainViewController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		
-		
 
 	}
 

@@ -105,67 +105,6 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 		}
 		
 	}
-
-	@Override
-	public MeioPagamento findById(Integer id) {
-		
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			st = conn.prepareStatement(
-					"SELECT * "
-					+ "FROM meiopagamento "
-					+ "WHERE id = ?");
-			
-			st.setInt(1, id);
-			rs = st.executeQuery();
-			if (rs.next()) {
-				MeioPagamento obj = instantiateMeioPagamento(rs);
-				return obj;
-			}
-			return null;
-		}
-		catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		}
-		finally {
-			DB.closeStatement(st);
-			DB.closeResultSet(rs);
-		}
-	}
-
-	@Override
-	public List<MeioPagamento> findAllByUserId(Integer id) {
-		
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		
-		try {
-			st = conn.prepareStatement("SELECT * FROM meiopagamento WHERE usuarioId = ? ORDER BY id");
-			
-			st.setInt(1, id);
-			
-			rs = st.executeQuery();
-			
-			List<MeioPagamento> list = new ArrayList<>();
-			
-			while(rs.next()) {
-				
-				MeioPagamento obj = new MeioPagamento();
-				obj = instantiateMeioPagamento(rs);
-				list.add(obj);
-			}
-			
-			return list;
-			
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		}
-		finally {
-			DB.closeStatement(st);
-			DB.closeResultSet(rs);
-		}
-	}
 	
 	@Override
 	public List<MeioPagamento> findByUserId(Integer userId) {

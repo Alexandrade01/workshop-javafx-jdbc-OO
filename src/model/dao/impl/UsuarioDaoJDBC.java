@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 import db.DB;
 import db.DbException;
@@ -22,23 +21,20 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
 	@Override
 	public void insert(Usuario obj) {
-		
+
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"INSERT INTO usuario "
-					+ "(nome, sobrenome, email, senha) "
-					+ "VALUES "
-					+ "(?, ?, ?, ?)",
+					"INSERT INTO usuario " + "(nome, sobrenome, email, senha) " + "VALUES " + "(?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
-			
+
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getSobrenome());
 			st.setString(3, obj.getEmail());
 			st.setString(4, obj.getSenha());
-			
+
 			int rowsAffected = st.executeUpdate();
-			
+
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs.next()) {
@@ -46,107 +42,79 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 					obj.setId(id);
 				}
 				DB.closeResultSet(rs);
-			}
-			else {
+			} else {
 				throw new DbException("Unexpected error! No rows affected!");
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
 
-	}
-
-	@Override
-	public void update(Usuario obj) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<Usuario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public Usuario findByEmailSenha(String email, String senha) {
-		
+
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		try {
 			st = conn.prepareStatement(
-					"SELECT usuario.* " + "from usuario " + 
-			"WHERE usuario.email = ? AND usuario.senha = ? ");
-			
+					"SELECT usuario.* " + "from usuario " + "WHERE usuario.email = ? AND usuario.senha = ? ");
+
 			st.setString(1, email);
 			st.setString(2, senha);
-			
+
 			rs = st.executeQuery();
-			
-			if(rs.next()) {
-				
+
+			if (rs.next()) {
+
 				Usuario usuario = instantiateUsuario(rs);
 				return usuario;
 			}
-			
+
 			return null;
-			
+
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		} finally {
 			DB.closeStatement(st);
 		}
 	}
-	
+
 	@Override
 	public Usuario findByEmail(String email) {
-		
+
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		try {
-			st = conn.prepareStatement(
-					"SELECT * " + "from usuario " + 
-			"WHERE email = ?");
-			
+			st = conn.prepareStatement("SELECT * " + "from usuario " + "WHERE email = ?");
+
 			st.setString(1, email);
-			
+
 			rs = st.executeQuery();
-			
-			if(rs.next()) {
-				
+
+			if (rs.next()) {
+
 				Usuario usuario = instantiateUsuario(rs);
 				return usuario;
 			}
-			
+
 			return null;
-			
+
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		} finally {
 			DB.closeStatement(st);
 		}
 	}
-	
+
 	private Usuario instantiateUsuario(ResultSet rs) throws SQLException {
-		
-		Usuario user = new Usuario(rs.getInt("id"), 
-									rs.getString("nome"), 
-									rs.getString("sobrenome"), 
-									rs.getString("email"), 
-									rs.getString("senha")
-									);
+
+		Usuario user = new Usuario(rs.getInt("id"), rs.getString("nome"), rs.getString("sobrenome"),
+				rs.getString("email"), rs.getString("senha"));
 		return user;
 	}
 

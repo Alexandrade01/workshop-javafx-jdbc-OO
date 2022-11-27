@@ -96,50 +96,46 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 
 	@Override
 	public List<Categoria> findByUserId(Integer id) {
-		
+
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement(
-					"SELECT * "
-					+ "FROM categoria "
-					+ "WHERE idUsuario = ?");
-			
+			st = conn.prepareStatement("SELECT * " + "FROM categoria " + "WHERE idUsuario = ?");
+
 			st.setInt(1, id);
-			
+
 			rs = st.executeQuery();
-			
+
 			List<Categoria> list = new ArrayList<>();
-			
-			while(rs.next()) {
-				
+
+			while (rs.next()) {
+
 				Categoria obj = new Categoria();
 				obj = instantiateCategoria(rs);
 				list.add(obj);
 			}
-			
+
 			return list;
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
 	}
-	
+
 	@Override
 	public List<Categoria> findAllOutsByUserId(Integer id) {
-		
+
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		try {
-			st = conn.prepareStatement("SELECT * FROM categoria WHERE tipoDeMovimento = 'DESPESA' AND idUsuario = ? ORDER BY id");
+			st = conn.prepareStatement(
+					"SELECT * FROM categoria WHERE tipoDeMovimento = 'DESPESA' AND idUsuario = ? ORDER BY id");
 
 			st.setInt(1, id);
-			
+
 			rs = st.executeQuery();
 
 			List<Categoria> list = new ArrayList<>();
@@ -160,26 +156,22 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 			DB.closeResultSet(rs);
 		}
 	}
-	
+
 	@Override
 	public String findNameByUserId(Integer id) {
-		
+
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		try {
 			st = conn.prepareStatement("SELECT descricao FROM categoria WHERE id = ?");
-			
+
 			st.setInt(1, 1);
-			
+
 			rs = st.executeQuery();
 
 			while (rs.next()) {
 
-//				Categoria obj = new Categoria();
-//				obj = instantiateCategoria(rs);
-//				return obj.getDescricao();
-				
 				String retorno = rs.getString("descricao");
 				return retorno;
 			}
@@ -194,26 +186,18 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 		}
 	}
 
-	private Categoria instantiateCategoria(ResultSet rs) throws SQLException {
-		Categoria obj = new Categoria();
-		obj.setId(rs.getInt("id"));
-		obj.setDescricao(rs.getString("descricao"));
-		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("tipoDeMovimento")));
-		obj.setIdUsuario(rs.getInt("idUsuario"));
-		return obj;
-	}
-
 	@Override
 	public List<Categoria> findAllDepositByUserId(Integer usuarioId) {
-		
+
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		try {
-			st = conn.prepareStatement("SELECT * FROM categoria WHERE tipoDeMovimento = 'RECEITA' AND  idUsuario = ? ORDER BY id");
-			
+			st = conn.prepareStatement(
+					"SELECT * FROM categoria WHERE tipoDeMovimento = 'RECEITA' AND  idUsuario = ? ORDER BY id");
+
 			st.setInt(1, usuarioId);
-			
+
 			rs = st.executeQuery();
 
 			List<Categoria> list = new ArrayList<>();
@@ -233,5 +217,15 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+	
+
+	private Categoria instantiateCategoria(ResultSet rs) throws SQLException {
+		Categoria obj = new Categoria();
+		obj.setId(rs.getInt("id"));
+		obj.setDescricao(rs.getString("descricao"));
+		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("tipoDeMovimento")));
+		obj.setIdUsuario(rs.getInt("idUsuario"));
+		return obj;
 	}
 }

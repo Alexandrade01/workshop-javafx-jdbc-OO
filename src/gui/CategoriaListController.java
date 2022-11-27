@@ -36,7 +36,7 @@ import model.service.CategoriaService;
 public class CategoriaListController implements Initializable, DataChangeListener {
 
 	private CategoriaService service;
-	
+
 	private Integer usuarioID;
 
 	@FXML
@@ -84,9 +84,9 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 	// setando as colunas de acordo com o nome dos atributos das classes
 	private void initializeNodes() {
-		//id do usuario para carregar as listas
+		// id do usuario para carregar as listas
 		usuarioID = Main.getUsuarioID();
-		
+
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 		tableColumnTipoDeMovimento.setCellValueFactory(new PropertyValueFactory<>("tipoDeMovimento"));
@@ -198,11 +198,12 @@ public class CategoriaListController implements Initializable, DataChangeListene
 
 	@Override
 	public void onDataChanged() {
-		//verificador de mudanças, caso haja alguma sera feito um update de tabela da view
+		// verificador de mudanças, caso haja alguma sera feito um update de tabela da
+		// view
 		updateTableView();
 
 	}
-	
+
 	private void removeEntity(Categoria obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que você quer deletar ?");
 

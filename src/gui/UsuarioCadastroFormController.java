@@ -31,7 +31,7 @@ public class UsuarioCadastroFormController implements Initializable {
 	private Usuario entity;
 
 	private UsuarioService usuarioService;
-	
+
 	private ValidationException validationException;
 
 	@FXML
@@ -45,13 +45,13 @@ public class UsuarioCadastroFormController implements Initializable {
 
 	@FXML
 	private TextField txtSenha;
-	
+
 	@FXML
 	private TextField txtRepeticaoSenha;
-	
+
 	@FXML
 	private Button btSave;
-	
+
 	@FXML
 	private Button btHelpSenha;
 
@@ -69,7 +69,7 @@ public class UsuarioCadastroFormController implements Initializable {
 
 	@FXML
 	private Label labelErrorSenha;
-	
+
 	@FXML
 	private Label labelErrorRepeticaoSenha;
 
@@ -94,12 +94,11 @@ public class UsuarioCadastroFormController implements Initializable {
 			usuarioService = new UsuarioService();
 			entity = new Usuario();
 			entity = getFormData();
-			if(usuarioService.findUserByEmail(txtEmail.getText())  != null) {
-				
+			if (usuarioService.findUserByEmail(txtEmail.getText()) != null) {
+
 				Alerts.showAlert("Email já cadastrado !", "Falha no cadastro ! ", "Error", AlertType.ERROR);
-			}
-			else {
-				
+			} else {
+
 				usuarioService.saveOrUpdate(entity);
 				clearFields();
 				clearErrors();
@@ -116,26 +115,26 @@ public class UsuarioCadastroFormController implements Initializable {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
-	
+
 	@FXML
 	public void onBtHelpSenhaAction(ActionEvent event) {
-		
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/HelpSenha.fxml"));
 
 		try {
 			Pane pane = loader.load();
-			
+
 			Scene mainScene = new Scene(pane);
-			
+
 			Stage primaryStage = new Stage();
 			primaryStage.setScene(mainScene);
 			primaryStage.setResizable(false);
 			primaryStage.setTitle("Fesa Wallet");
 			primaryStage.initModality(Modality.APPLICATION_MODAL);
 			primaryStage.show();
-			
+
 		} catch (IOException e) {
-		
+
 			e.printStackTrace();
 		}
 	}
@@ -143,38 +142,42 @@ public class UsuarioCadastroFormController implements Initializable {
 	private Usuario getFormData() {
 
 		Usuario obj = new Usuario();
-		
+
 		validationException = new ValidationException("Validation error");
 
 		// Validacao nome
-		if (txtNome.getText() == null || txtNome.getText().trim().equals("") || !ValidationUtil.validacaoTamanho(txtNome.getText())) {
+		if (txtNome.getText() == null || txtNome.getText().trim().equals("")
+				|| !ValidationUtil.validacaoTamanho(txtNome.getText())) {
 			validationException.addError("nome", "O nome esta invalido !");
 		}
 		obj.setNome(txtNome.getText());
 
 		// Validacao sobrenome
-		if (txtSobrenome.getText() == null || txtSobrenome.getText().trim().equals("") ||  !ValidationUtil.validacaoTamanho(txtSobrenome.getText())) {
+		if (txtSobrenome.getText() == null || txtSobrenome.getText().trim().equals("")
+				|| !ValidationUtil.validacaoTamanho(txtSobrenome.getText())) {
 			validationException.addError("sobrenome", "O sobrenome esta invalido !");
 		}
 		obj.setSobrenome(txtSobrenome.getText());
 
 		// Validacao Email
-		if (txtEmail.getText() == null || txtEmail.getText().trim().equals("") || !ValidationUtil.validacaoEmail(txtEmail.getText())) {
+		if (txtEmail.getText() == null || txtEmail.getText().trim().equals("")
+				|| !ValidationUtil.validacaoEmail(txtEmail.getText())) {
 			validationException.addError("email", "O email esta invalido !");
 		}
 		obj.setEmail(txtEmail.getText());
 
 		// Validacao senha
-		if (txtSenha.getText() == null || txtSenha.getText().trim().equals("") || !ValidationUtil.validacaoSenha(txtSenha.getText())) {
+		if (txtSenha.getText() == null || txtSenha.getText().trim().equals("")
+				|| !ValidationUtil.validacaoSenha(txtSenha.getText())) {
 			validationException.addError("senha", "A senha esta invalida !");
 		}
-		
-		if(!txtSenha.getText().equals(txtRepeticaoSenha.getText())){ 
-			
+
+		if (!txtSenha.getText().equals(txtRepeticaoSenha.getText())) {
+
 			validationException.addError("senhaRepetida", "As senhas estão incompativeis !");
-			
+
 		}
-		
+
 		obj.setSenha(txtSenha.getText());
 
 		if (validationException.getErrors().size() > 0) {
@@ -193,18 +196,16 @@ public class UsuarioCadastroFormController implements Initializable {
 		txtSenha.clear();
 		txtRepeticaoSenha.clear();
 	}
-	
+
 	private void clearErrors() {
-		
+
 		labelErrorNome.setText("");
 		labelErrorSobrenome.setText("");
 		labelErrorEmail.setText("");
 		labelErrorSenha.setText("");
 		labelErrorRepeticaoSenha.setText("");
 
-
 	}
-
 
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
@@ -212,17 +213,17 @@ public class UsuarioCadastroFormController implements Initializable {
 		Utils.currentStage(event).close();
 
 	}
-	
+
 	private void setErrorMessages(Map<String, String> errors) {
 
 		Set<String> fields = errors.keySet();
-		
+
 		labelErrorNome.setText(fields.contains("nome") ? errors.get("nome") : "");
 		labelErrorSobrenome.setText(fields.contains("sobrenome") ? errors.get("sobrenome") : "");
 		labelErrorEmail.setText(fields.contains("email") ? errors.get("email") : "");
 		labelErrorSenha.setText(fields.contains("senha") ? errors.get("senha") : "");
 		labelErrorRepeticaoSenha.setText(fields.contains("senhaRepetida") ? errors.get("senhaRepetida") : "");
-		
+
 	}
 
 }

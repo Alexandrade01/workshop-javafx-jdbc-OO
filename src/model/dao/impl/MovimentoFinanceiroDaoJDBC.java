@@ -85,25 +85,25 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 			Map<Integer, MeioPagamento> mapMeioPagamento = new HashMap<>();
 
 			while (rs.next()) {
-				
-				Categoria cat =  mapCategoria.get(rs.getInt("categoriaId"));
-				
-				if(cat == null) {
-					
+
+				Categoria cat = mapCategoria.get(rs.getInt("categoriaId"));
+
+				if (cat == null) {
+
 					cat = instantiateCategoria(rs);
 					mapCategoria.put(rs.getInt("categoriaId"), cat);
-					
+
 				}
-				
+
 				MeioPagamento mp = mapMeioPagamento.get(rs.getInt("meiopagamentoId"));
-				
-				if(mp == null) {
-					
+
+				if (mp == null) {
+
 					mp = instantiateMeioPagamento(rs);
 					mapMeioPagamento.put(rs.getInt("meiopagamentoId"), mp);
-					
+
 				}
-				
+
 				MovimentoFinanceiro mf = instantiateMovimentoFinanceiro(rs, cat, mp);
 
 				list.add(mf);
@@ -135,33 +135,9 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 			DB.closeStatement(st);
 		}
 	}
-	
-	private MovimentoFinanceiro instantiateMovimentoFinanceiro(ResultSet rs, Categoria cat, MeioPagamento mp) throws SQLException {
-		
-		MovimentoFinanceiro mf = new MovimentoFinanceiro();
-		mf.setId(rs.getInt("id"));
-		mf.setDescricao(rs.getString("descricao"));
-		mf.setDataTransacao(new java.util.Date(rs.getTimestamp("dataTransacao").getTime()));
-		mf.setValor(rs.getDouble("valor"));
-		mf.setCategoria(cat);
-		mf.setMeioPagamento(mp);
-		mf.setUsuario(rs.getInt("usuarioId"));
-		
-		return mf;
-		
-	}
-	
-	private Categoria instantiateCategoria(ResultSet rs) throws SQLException {
-		Categoria obj = new Categoria();
-		obj.setId(rs.getInt("categoriaId"));
-		obj.setDescricao(rs.getString("CATNAME"));
-		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("MPTIPO")));
-		obj.setIdUsuario(null);
-		return obj;
-	}
-	
+
 	private MeioPagamento instantiateMeioPagamento(ResultSet rs) throws SQLException {
-		
+
 		MeioPagamento obj = new MeioPagamento();
 		obj.setId(rs.getInt("meiopagamentoId"));
 		obj.setDescricao(rs.getString("MPNAME"));
@@ -173,11 +149,10 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 
 	@Override
 	public void update(MovimentoFinanceiro entity) {
-		
+
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement(
-					"UPDATE movimentofinanceiro "
+			st = conn.prepareStatement("UPDATE movimentofinanceiro "
 					+ "SET descricao = ?, dataTransacao = ?, valor = ?, categoriaId = ?, meiopagamentoId = ?, usuarioId = ? "
 					+ "WHERE Id = ?");
 			st.setString(1, entity.getDescricao());
@@ -186,58 +161,75 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 			st.setInt(4, entity.getCategoria().getId());
 			st.setInt(5, entity.getMeioPagamento().getId());
 			st.setInt(6, entity.getId());
-			
+
 			st.executeUpdate();
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
-		
+
 	}
 
 	@Override
 	public void diminuiSaldo(Double saldo, Integer id) {
-		
+
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("CALL diminuiCash(?, ?)");
 			st.setDouble(1, saldo);
 			st.setInt(2, id);
 
-			
 			st.executeUpdate();
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
-		
+
 	}
 
 	@Override
 	public void aumentaSaldo(Double saldo, Integer id) {
-		
+
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("CALL aumentaCash(?, ?)");
 			st.setDouble(1, saldo);
 			st.setInt(2, id);
 
-			
 			st.executeUpdate();
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		}
-		finally {
+		} finally {
 			DB.closeStatement(st);
 		}
-		
+
+	}
+
+	private MovimentoFinanceiro instantiateMovimentoFinanceiro(ResultSet rs, Categoria cat, MeioPagamento mp)
+			throws SQLException {
+
+		MovimentoFinanceiro mf = new MovimentoFinanceiro();
+		mf.setId(rs.getInt("id"));
+		mf.setDescricao(rs.getString("descricao"));
+		mf.setDataTransacao(new java.util.Date(rs.getTimestamp("dataTransacao").getTime()));
+		mf.setValor(rs.getDouble("valor"));
+		mf.setCategoria(cat);
+		mf.setMeioPagamento(mp);
+		mf.setUsuario(rs.getInt("usuarioId"));
+
+		return mf;
+
+	}
+
+	private Categoria instantiateCategoria(ResultSet rs) throws SQLException {
+		Categoria obj = new Categoria();
+		obj.setId(rs.getInt("categoriaId"));
+		obj.setDescricao(rs.getString("CATNAME"));
+		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("MPTIPO")));
+		obj.setIdUsuario(null);
+		return obj;
 	}
 
 }

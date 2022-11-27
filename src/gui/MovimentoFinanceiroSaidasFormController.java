@@ -139,8 +139,7 @@ public class MovimentoFinanceiroSaidasFormController implements Initializable {
 		} catch (ValidationException e) {
 
 			setErrorMessages(e.getErrors());
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 
 			Alerts.showAlert("Erro !", null, "Erro ao salvar a movimentação !", AlertType.ERROR);
 		}

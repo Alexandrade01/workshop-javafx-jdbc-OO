@@ -30,7 +30,7 @@ public class MeioPagamentoFormController implements Initializable {
 	private MeioPagamento entity;
 
 	private MeioPagamentoService service;
-	
+
 	private Integer usuarioId;
 
 	// lista de componentes interessados em alterações
@@ -68,13 +68,13 @@ public class MeioPagamentoFormController implements Initializable {
 		this.service = service;
 
 	}
-	
+
 	// injecao da lista
 	public void subscribeDataChangeListener(DataChangeListener listener) {
 
 		dataChangeListeners.add(listener);
 	}
-	
+
 	@FXML
 	public void onBtSaveAction(ActionEvent event) {
 		// controle de aviso para o programador injetar a dependencia
@@ -104,7 +104,7 @@ public class MeioPagamentoFormController implements Initializable {
 		}
 
 	}
-	
+
 	private void notifyDataChangeListener() {
 
 		for (DataChangeListener listener : dataChangeListeners) {
@@ -120,47 +120,47 @@ public class MeioPagamentoFormController implements Initializable {
 		MeioPagamento obj = new MeioPagamento();
 
 		ValidationException validationException = new ValidationException("Validation error");
-		
+
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
-		
+
 		// Validacao descricao
 		if (txtDescricao.getText() == null || txtDescricao.getText().trim().equals("")) {
 			validationException.addError("descricao", "O campo não pode ser vazio ! ");
 		}
 		obj.setDescricao(txtDescricao.getText());
-		
-		if(txtSaldo.getText() == null || Double.valueOf(txtSaldo.getText()) <= 0 ) {
-			
+
+		if (txtSaldo.getText() == null || Double.valueOf(txtSaldo.getText()) <= 0) {
+
 			validationException.addError("saldo", "saldo invalido ! ");
-			
+
 		}
-		
+
 		obj.setSaldo(Utils.tryParseToDouble(txtSaldo.getText()));
-		
+
 		if (validationException.getErrors().size() > 0) {
 
 			throw validationException;
 		}
-		
+
 		obj.setUsuarioId(usuarioId);
 
 		return obj;
 	}
-	
+
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
 		Utils.currentStage(event).close();
-		
+
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		usuarioId = Main.getUsuarioID();
-		
+
 		initializeNodes();
 	}
-	
+
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtDescricao, 70);
@@ -168,7 +168,7 @@ public class MeioPagamentoFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtUsuarioId);
 
 	}
-	
+
 	// popular formulario com o objeto
 	public void updateFormData() {
 
@@ -182,13 +182,12 @@ public class MeioPagamentoFormController implements Initializable {
 		txtSaldo.setText(String.format("%.2f", entity.getSaldo()));
 		txtUsuarioId.setText(String.valueOf(usuarioId));
 	}
-	
+
 	private void setErrorMessages(Map<String, String> errors) {
 
 		Set<String> fields = errors.keySet();
-		
-		labelErrorDescricao.setText(fields.contains("descricao") ? errors.get("name"):"");
+
+		labelErrorDescricao.setText(fields.contains("descricao") ? errors.get("name") : "");
 	}
-	
 
 }

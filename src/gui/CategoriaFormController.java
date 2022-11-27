@@ -36,17 +36,17 @@ public class CategoriaFormController implements Initializable {
 	private Categoria entity;
 
 	private CategoriaService service;
-	
+
 	private Integer usuarioId;
-	
+
 	private ObservableList<TipoDeMovimento> obsList;
 
 	// lista de componentes interessados em alterações
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
-	
+
 	@FXML
 	private TextField txtId;
-	
+
 	@FXML
 	private TextField txtDescricao;
 
@@ -128,15 +128,15 @@ public class CategoriaFormController implements Initializable {
 		Categoria obj = new Categoria();
 
 		ValidationException validationException = new ValidationException("Validation error");
-		
+
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
-		
+
 		// Validacao descricao
 		if (txtDescricao.getText() == null || txtDescricao.getText().trim().equals("")) {
 			validationException.addError("descricao", "O campo não pode ser vazio ! ");
 		}
 		obj.setDescricao(txtDescricao.getText());
-		
+
 		// validacao department
 		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(comboBoxTipoDeMovimento.getValue().toString()));
 
@@ -144,68 +144,67 @@ public class CategoriaFormController implements Initializable {
 
 			throw validationException;
 		}
-		
+
 		obj.setIdUsuario(usuarioId);
 
 		return obj;
 	}
-	
+
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
 		Utils.currentStage(event).close();
 
 	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		initializeNodes();
 	}
-	
+
 	private void initializeNodes() {
-		
+
 		usuarioId = Main.getUsuarioID();
-		
+
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtDescricao, 70);
 		Constraints.setTextFieldInteger(txtIdUsuario);
 		initializeComboBoxTipoDeMovimento();
 
 	}
-	
+
 	// popular formulario com o objeto
-		public void updateFormData() {
+	public void updateFormData() {
 
-			if (entity == null) {
-				throw new IllegalStateException("Entity was null");
-			}
-			txtId.setText(String.valueOf(entity.getId()));
-			txtDescricao.setText(entity.getDescricao());
-			txtIdUsuario.setText(String.valueOf(entity.getIdUsuario()));
-
-			if (entity.getTipoDeMovimento() == null) {
-
-				comboBoxTipoDeMovimento.getSelectionModel().selectFirst();
-			}
-			else {
-				comboBoxTipoDeMovimento.setValue(entity.getTipoDeMovimento());
-			}
-			
+		if (entity == null) {
+			throw new IllegalStateException("Entity was null");
 		}
+		txtId.setText(String.valueOf(entity.getId()));
+		txtDescricao.setText(entity.getDescricao());
+		txtIdUsuario.setText(String.valueOf(entity.getIdUsuario()));
+
+		if (entity.getTipoDeMovimento() == null) {
+
+			comboBoxTipoDeMovimento.getSelectionModel().selectFirst();
+		} else {
+			comboBoxTipoDeMovimento.setValue(entity.getTipoDeMovimento());
+		}
+
+	}
 
 	public void loadAssociatedObjects() {
 		obsList = FXCollections.observableArrayList(TipoDeMovimento.values());
 		comboBoxTipoDeMovimento.setItems(obsList);
 
 	}
-	
+
 	private void setErrorMessages(Map<String, String> errors) {
 
 		Set<String> fields = errors.keySet();
-		
-		labelErrorDescricao.setText(fields.contains("descricao") ? errors.get("name"):"");
-		
+
+		labelErrorDescricao.setText(fields.contains("descricao") ? errors.get("name") : "");
+
 	}
-	
+
 	private void initializeComboBoxTipoDeMovimento() {
 		Callback<ListView<TipoDeMovimento>, ListCell<TipoDeMovimento>> factory = lv -> new ListCell<TipoDeMovimento>() {
 			@Override

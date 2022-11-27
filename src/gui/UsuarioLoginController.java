@@ -37,23 +37,22 @@ public class UsuarioLoginController implements Initializable {
 
 	@FXML
 	private MenuItem menuItemCadastroUsuario;
-	
+
 	public Usuario getUser() {
-		
+
 		return user;
 	}
 
 	@FXML
 	public void onBtFindUserAction(ActionEvent event) {
-		
+
 		user = service.findUser(txtEmail.getText(), txtSenha.getText());
 		if (user == null) {
 
 			Alerts.showAlert("Acesso não permitido ", null, "usuario e/ou senha não foram encontrado(s)",
 					AlertType.ERROR);
-		}
-		else {
-			
+		} else {
+
 			Utils.currentStage(event).close();
 		}
 	}
@@ -64,7 +63,6 @@ public class UsuarioLoginController implements Initializable {
 		Usuario obj = new Usuario();
 
 		createDialogForm(obj, "/gui/UsuarioFormView.fxml", new Stage());
-	
 
 	}
 
@@ -81,9 +79,9 @@ public class UsuarioLoginController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 
 			AnchorPane anchorPane = loader.load();
-			
+
 			Scene mainScene = new Scene(anchorPane);
-			
+
 			Stage primaryStage = new Stage();
 			primaryStage.setScene(mainScene);
 			primaryStage.setResizable(false);

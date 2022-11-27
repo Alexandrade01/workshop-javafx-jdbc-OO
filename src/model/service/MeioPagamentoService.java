@@ -12,7 +12,7 @@ public class MeioPagamentoService {
 
 	public List<MeioPagamento> findAllByUserId(Integer usuarioId) {
 
-		return dao.findAllByUserId(usuarioId);
+		return dao.findByUserId(usuarioId);
 	}
 
 	public List<MeioPagamento> findByUserId(Integer id) {

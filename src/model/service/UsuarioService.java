@@ -22,8 +22,6 @@ public class UsuarioService {
 
 		if (obj.getId() == null) {
 			dao.insert(obj);
-		} else {
-			dao.update(obj);
 		}
 	}
 
