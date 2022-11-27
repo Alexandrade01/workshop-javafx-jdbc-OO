@@ -10,6 +10,7 @@ public interface MovimentoFinanceiroDao {
 	List<MovimentoFinanceiro> findByUserId(Integer id);
 	void deleteById(Integer id);
 	void update(MovimentoFinanceiro entity);
-	void updateSaldo(Double saldo, Integer id);
+	void diminuiSaldo(Double saldo, Integer id);
+	void aumentaSaldo(Double saldo, Integer id);
 
 }

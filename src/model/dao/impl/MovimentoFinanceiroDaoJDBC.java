@@ -17,6 +17,7 @@ import model.dao.MovimentoFinanceiroDao;
 import model.entities.Categoria;
 import model.entities.MeioPagamento;
 import model.entities.MovimentoFinanceiro;
+import model.enumerations.TipoDeMovimento;
 
 public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 
@@ -68,7 +69,8 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * , categoria.descricao as CATNAME , meiopagamento.descricao as MPNAME, meiopagamento.saldo as MPSALDO "
+			st = conn.prepareStatement("SELECT * , categoria.descricao as CATNAME, categoria.tipoDeMovimento as MPTIPO,"
+					+ " meiopagamento.descricao as MPNAME, meiopagamento.saldo as MPSALDO "
 					+ "			FROM movimentofinanceiro "
 					+ "			INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id "
 					+ "			INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id "
@@ -153,7 +155,7 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 		Categoria obj = new Categoria();
 		obj.setId(rs.getInt("categoriaId"));
 		obj.setDescricao(rs.getString("CATNAME"));
-		obj.setTipoDeMovimento(null);
+		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("MPTIPO")));
 		obj.setIdUsuario(null);
 		return obj;
 	}
@@ -197,11 +199,32 @@ public class MovimentoFinanceiroDaoJDBC implements MovimentoFinanceiroDao {
 	}
 
 	@Override
-	public void updateSaldo(Double saldo, Integer id) {
+	public void diminuiSaldo(Double saldo, Integer id) {
 		
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("CALL diminuiCash(?, ?)");
+			st.setDouble(1, saldo);
+			st.setInt(2, id);
+
+			
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+		
+	}
+
+	@Override
+	public void aumentaSaldo(Double saldo, Integer id) {
+		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("CALL aumentaCash(?, ?)");
 			st.setDouble(1, saldo);
 			st.setInt(2, id);
 

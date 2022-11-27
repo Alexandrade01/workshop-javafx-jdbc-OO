@@ -214,7 +214,7 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 					
 				}
 				service.remove(obj);
-				service.updateSaldo(obj.getValor(),obj.getMeioPagamento().getId());
+				service.diminuiSaldo(obj.getValor(),obj.getMeioPagamento().getId());
 				updateTableView();
 			} catch (DbIntegrityException e) {
 

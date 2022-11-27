@@ -7,35 +7,41 @@ import model.dao.MovimentoFinanceiroDao;
 import model.entities.MovimentoFinanceiro;
 
 public class MovimentoFinanceiroService {
-	
+
 	private MovimentoFinanceiroDao dao = DaoFactory.createMovimentoFinanceiroDao();
-	
+
 	public List<MovimentoFinanceiro> findByUserId(Integer usuarioID) {
-		
+
 		return dao.findByUserId(usuarioID);
-		
+
 	}
 
 	public void remove(MovimentoFinanceiro obj) {
 
 		dao.deleteById(obj.getId());
-		
+
 	}
 
 	public void saveOrUpdate(MovimentoFinanceiro entity) {
-		
+
 		if (entity.getId() == null) {
 			dao.insert(entity);
 		} else {
 			dao.update(entity);
 		}
-		
+
 	}
 
-	public void updateSaldo(Double saldo, Integer id) {
-		
-		dao.updateSaldo(saldo,id);
-		
+	public void diminuiSaldo(Double saldo, Integer id) {
+
+		dao.diminuiSaldo(saldo, id);
+
+	}
+
+	public void aumentaSaldo(Double saldo, Integer id) {
+
+		dao.aumentaSaldo(saldo, id);
+
 	}
 
 }

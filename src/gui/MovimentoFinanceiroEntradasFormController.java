@@ -123,6 +123,7 @@ public class MovimentoFinanceiroEntradasFormController implements Initializable 
 
 			entity = getFormData();
 			service.saveOrUpdate(entity);
+			service.aumentaSaldo(entity.getValor(), entity.getMeioPagamento().getId());
 			// possuindo algum item na lista de dataChangeListeners ele ira atualizar a
 			// lista do formulario
 			notifyDataChangeListener();
