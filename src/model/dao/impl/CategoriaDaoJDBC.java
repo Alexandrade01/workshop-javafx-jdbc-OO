@@ -160,6 +160,36 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 	}
 	
 	@Override
+	public List<Categoria> findAllOut() {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			st = conn.prepareStatement("SELECT * FROM categoria WHERE tipoDeMovimento = 'DESPESA' ORDER BY id");
+
+			rs = st.executeQuery();
+
+			List<Categoria> list = new ArrayList<>();
+
+			while (rs.next()) {
+
+				Categoria obj = new Categoria();
+				obj = instantiateCategoria(rs);
+				list.add(obj);
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+	
+	@Override
 	public String findNameByUserId(Integer id) {
 		
 		PreparedStatement st = null;
@@ -200,7 +230,4 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 		obj.setIdUsuario(rs.getInt("idUsuario"));
 		return obj;
 	}
-
-	
-
 }

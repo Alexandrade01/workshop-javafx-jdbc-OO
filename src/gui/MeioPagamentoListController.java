@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbException;
 import db.DbIntegrityException;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
@@ -216,6 +217,10 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 			} catch (DbIntegrityException e) {
 
 				Alerts.showAlert("Error para mover objeto", null, e.getMessage(), AlertType.ERROR);
+			}
+			catch(DbException e) {
+				
+				Alerts.showAlert("Não possivel deletar meios de pagamentos que possuem históricos de movimentações", "Erro ! ", null , AlertType.ERROR);
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbException;
 import db.DbIntegrityException;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
@@ -68,6 +69,9 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 	private Button buttonNewDeposit;
 
 	@FXML
+	private Button buttonNewOut;
+
+	@FXML
 	private TableColumn<MovimentoFinanceiro, MovimentoFinanceiro> tableColumnRemove;
 
 	private ObservableList<MovimentoFinanceiro> obsList;
@@ -77,6 +81,13 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 		Stage parentStage = Utils.currentStage(event);
 		MovimentoFinanceiro obj = new MovimentoFinanceiro();
 		createDialogForm(obj, "/gui/MovimentoFinanceiroEntradasFormView.fxml", parentStage);
+	}
+
+	@FXML
+	public void onBtNewActionSaidas(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		MovimentoFinanceiro obj = new MovimentoFinanceiro();
+		createDialogForm(obj, "/gui/MovimentoFinanceiroSaidasFormView.fxml", parentStage);
 	}
 
 	public void setMovimentoFinanceiroService(MovimentoFinanceiroService movimentoFinanceiroService) {
@@ -104,7 +115,7 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 		Utils.formatTableColumnCash(tableColumnValor);
 
 		tableColumnCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-		
+
 		tableColumnMeioPagamento.setCellValueFactory(new PropertyValueFactory<>("meioPagamento"));
 
 		// serve para que a lista acompanhe ate o final da tela
@@ -135,15 +146,41 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 			Pane pane = loader.load();
 
 			// populando o form com os meios de pagamento
-			MovimentoFinanceiroEntradasFormController controller = loader.getController();
-			controller.setMovimentoPagamento(obj);
-			controller.setServices(new MovimentoFinanceiroService(), new CategoriaService(), new MeioPagamentoService());
-			controller.loadAssociatedObjects();
+			if (absoluteName == "/gui/MovimentoFinanceiroEntradasFormView.fxml") {
 
-			// adiciona um item na lista de listeners portanto sera chamado para atualizar a
-			// lista
-			controller.subscribeDataChangeListener(this);
-			controller.updateFormData();
+				MovimentoFinanceiroEntradasFormController controller = loader.getController();
+
+				controller.setMovimentoPagamento(obj);
+				controller.setServices(new MovimentoFinanceiroService(), new CategoriaService(),
+						new MeioPagamentoService());
+				controller.loadAssociatedObjects();
+
+				// adiciona um item na lista de listeners portanto sera chamado para atualizar a
+				// lista
+				controller.subscribeDataChangeListener(this);
+				controller.updateFormData();
+			} else {
+				MovimentoFinanceiroSaidasFormController controller = loader.getController();
+
+				controller.setMovimentoPagamento(obj);
+				controller.setServices(new MovimentoFinanceiroService(), new CategoriaService(),
+						new MeioPagamentoService());
+				controller.loadAssociatedObjects();
+
+				// adiciona um item na lista de listeners portanto sera chamado para atualizar a
+				// lista
+				controller.subscribeDataChangeListener(this);
+				controller.updateFormData();
+			}
+//			controller.setMovimentoPagamento(obj);
+//			controller.setServices(new MovimentoFinanceiroService(), new CategoriaService(),
+//					new MeioPagamentoService());
+//			controller.loadAssociatedObjects();
+//
+//			// adiciona um item na lista de listeners portanto sera chamado para atualizar a
+//			// lista
+//			controller.subscribeDataChangeListener(this);
+//			controller.updateFormData();
 
 			// quando quero abrir uma janela nova preciso instanciar um novo stage
 			Stage dialogStage = new Stage();
@@ -208,13 +245,8 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 			}
 
 			try {
-				if(obj.getValor() > obj.getMeioPagamento().getSaldo()) {
-					
-					throw new DbIntegrityException("Não é permitido saldo negativo ! Organize suas fincanças !");
-					
-				}
 				service.remove(obj);
-				service.diminuiSaldo(obj.getValor(),obj.getMeioPagamento().getId());
+				service.aumentaSaldo(obj.getValor(), obj.getMeioPagamento().getId());
 				updateTableView();
 			} catch (DbIntegrityException e) {
 

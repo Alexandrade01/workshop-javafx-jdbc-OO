@@ -7,13 +7,18 @@ import model.dao.DaoFactory;
 import model.entities.Categoria;
 
 public class CategoriaService {
-	
-	//configuracao de banco de dados
+
+	// configuracao de banco de dados
 	private CategoriaDao dao = DaoFactory.createCategoriaDao();
 
 	public List<Categoria> findAllDeposit() {
 
 		return dao.findAllDeposit();
+	}
+
+	public List<Categoria> findAllOuts() {
+
+		return dao.findAllOut();
 	}
 
 	public void saveOrUpdate(Categoria obj) {
@@ -30,17 +35,17 @@ public class CategoriaService {
 		dao.deleteById(obj.getId());
 
 	}
-	
-	public List<Categoria> findByUserId(Integer userId){
-		
+
+	public List<Categoria> findByUserId(Integer userId) {
+
 		return dao.findByUserId(userId);
-		
+
 	}
-	
+
 	public String findNameByUserId(Integer userId) {
-		
+
 		return dao.findNameByUserId(userId);
-		
+
 	}
 
 }

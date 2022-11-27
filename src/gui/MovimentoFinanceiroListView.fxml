@@ -33,6 +33,11 @@
                <effect>
                   <SepiaTone level="0.53" />
                </effect></Button>
+            <Button fx:id="buttonNewOut" mnemonicParsing="false" onAction="#onBtNewActionSaidas" prefHeight="26.0" prefWidth="158.0" text="Novas saídas">
+               <effect>
+                  <SepiaTone level="0.53" />
+               </effect>
+            </Button>
         </items>
       </ToolBar>
       <TableView fx:id="tableViewMovimentoFinanceiro" prefHeight="340.0" prefWidth="534.0">

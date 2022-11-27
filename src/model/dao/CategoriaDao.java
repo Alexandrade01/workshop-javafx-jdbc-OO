@@ -12,6 +12,7 @@ public interface CategoriaDao {
 	List<Categoria> findByUserId(Integer id);
 	List<Categoria> findAllDeposit();
 	String findNameByUserId(Integer id);
+	List<Categoria> findAllOut();
 
 	
 
