@@ -42,6 +42,11 @@ public class UsuarioLoginController implements Initializable {
 		
 		return user.getId();
 	}
+	
+	public String getNameUser() {
+		
+		return user.getNome();
+	}
 
 	@FXML
 	public void onBtFindUserAction(ActionEvent event) {

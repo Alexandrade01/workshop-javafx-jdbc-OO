@@ -13,10 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import model.entities.MovimentoFinanceiro;
 import model.service.CategoriaService;
 import model.service.MeioPagamentoService;
 import model.service.MovimentoFinanceiroService;
@@ -35,6 +35,8 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemMeioPagamento;
 	@FXML
 	private MenuItem menuItemMovimentoFinanceiro;
+	@FXML
+	private Label textoNome;
 
 	@FXML
 	public void onMenuItemAboutAction() {
@@ -74,7 +76,8 @@ public class MainViewController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO Auto-generated method stub
+		
+		textoNome.setText(Main.getUsuarioName().toUpperCase());
 
 	}
 

@@ -19,6 +19,7 @@ public class Main extends Application {
 	
 	private static Scene mainScene;
 	private static Integer usuarioID;
+	private static String usuarioName;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -35,7 +36,7 @@ public class Main extends Application {
 			//Id do usuario
 			UsuarioLoginController controller = loaderLogin.getController();
 			usuarioID = controller.getIdUser();
-			
+			usuarioName = controller.getNameUser();
 			
 			//tela do usuario inicial
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));
@@ -56,6 +57,10 @@ public class Main extends Application {
 	
 	public static Integer getUsuarioID() {
 		return usuarioID;
+	}
+	
+	public static String getUsuarioName() {
+		return usuarioName;
 	}
 	
 	public static Scene getMainScene() {
