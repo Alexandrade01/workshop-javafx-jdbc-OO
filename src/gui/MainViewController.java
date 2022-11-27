@@ -7,11 +7,14 @@ import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -37,6 +40,11 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemMovimentoFinanceiro;
 	@FXML
 	private Label textoNome;
+	@FXML
+	private PieChart chartMinhasCarteiras;
+	
+	Double totalreceita = Double.valueOf(0);
+	Double totaldespesa = Double.valueOf(0);
 
 	@FXML
 	public void onMenuItemAboutAction() {
@@ -78,6 +86,12 @@ public class MainViewController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		
 		textoNome.setText(Main.getUsuarioName().toUpperCase());
+		
+		MeioPagamentoService service = new MeioPagamentoService();
+		totalreceita = service.totalReceitasById(Main.getUsuarioID());
+		totaldespesa = service.totalDespesasById(Main.getUsuarioID());
+		
+		createPieChart();
 
 	}
 
@@ -112,6 +126,18 @@ public class MainViewController implements Initializable {
 
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+	
+	private void createPieChart() {
+		
+		ObservableList<PieChart.Data> pieChartData
+			= FXCollections.observableArrayList(
+					new PieChart.Data("RECEITAS R$" + String.format("%.2f", totalreceita),totalreceita),
+					new PieChart.Data("DESPESAS R$" + String.format("%.2f", totaldespesa),totaldespesa)
+					);
+		chartMinhasCarteiras.setData(pieChartData);
+		chartMinhasCarteiras.setTitle("Meu fluxo de Caixa");
+		
 	}
 
 }

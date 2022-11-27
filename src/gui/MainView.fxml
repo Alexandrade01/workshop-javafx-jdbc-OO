@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -14,8 +15,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
@@ -85,34 +84,21 @@
                         <Font name="Dubai Regular" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="textoNome" prefHeight="68.0" prefWidth="394.0" GridPane.columnIndex="1">
+                  <Label fx:id="textoNome" prefHeight="68.0" prefWidth="394.0" text="tttt" textFill="#1e2b57" GridPane.columnIndex="1">
                      <font>
-                        <Font name="Dubai Regular" size="20.0" />
+                        <Font name="Dubai Regular" size="27.0" />
                      </font>
-                     <textFill>
-                        <LinearGradient endX="0.42803032470471924" endY="0.7007575902071866" startX="0.42803017027450346" startY="0.2272728175827951">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.0065886941738426685" green="0.03263937681913376" blue="0.13684210181236267" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.006729475100942127">
-                                 <color>
-                                    <Color red="0.0065886941738426685" green="0.03263937681913376" blue="0.13684210181236267" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.6074073910713196" green="0.671345055103302" blue="0.8631578683853149" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </textFill>
                   </Label>
                </children>
             </GridPane>
+            <PieChart fx:id="chartMinhasCarteiras" mouseTransparent="true" prefHeight="281.0" prefWidth="304.0" title="Carteiras">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets right="250.0" />
+               </VBox.margin>
+            </PieChart>
          </children>
       </VBox>
    </content>

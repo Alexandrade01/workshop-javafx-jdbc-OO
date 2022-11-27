@@ -35,8 +35,8 @@ public class Main extends Application {
 			
 			//Id do usuario
 			UsuarioLoginController controller = loaderLogin.getController();
-			usuarioID = controller.getIdUser();
-			usuarioName = controller.getNameUser();
+			usuarioID = controller.getUser().getId();
+			usuarioName = controller.getUser().getNome();
 			
 			//tela do usuario inicial
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));

@@ -13,7 +13,6 @@ import db.DB;
 import db.DbException;
 import model.dao.MeioPagamentoDao;
 import model.entities.MeioPagamento;
-import model.enumerations.TipoDeMovimento;
 
 public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 	
@@ -153,10 +152,7 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 			while(rs.next()) {
 				
 				MeioPagamento obj = new MeioPagamento();
-				obj.setId(rs.getInt("id"));
-				obj.setDescricao(rs.getString("descricao"));
-				obj.setSaldo(rs.getDouble("saldo"));
-				obj.setUsuarioId(rs.getInt("usuarioId"));
+				obj = instantiateMeioPagamento(rs);
 				list.add(obj);
 			}
 			
@@ -216,6 +212,74 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 		obj.setUsuarioId(rs.getInt("usuarioId"));
 		return obj;
 
+	}
+
+	@Override
+	public Double totalReceitasById(Integer usuarioID) {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		Double soma = null;
+		
+		try {
+			st = conn.prepareStatement("SELECT SUM(movimentofinanceiro.valor) AS SOMA from movimentofinanceiro "
+					+ "INNER JOIN categoria ON categoria.id = movimentofinanceiro.categoriaId "
+					+ "WHERE movimentofinanceiro.usuarioId = ? AND categoria.tipoDeMovimento = 'RECEITA'");
+			
+			st.setInt(1, usuarioID);
+			
+			rs = st.executeQuery();
+			
+			
+			
+			while(rs.next()) {
+				
+				soma = rs.getDouble("SOMA");
+			}
+			
+			return soma;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	@Override
+	public Double totalDespesasById(Integer usuarioID) {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		Double soma = null;
+		
+		try {
+			st = conn.prepareStatement("SELECT SUM(movimentofinanceiro.valor) AS SOMA from movimentofinanceiro "
+					+ "INNER JOIN categoria ON categoria.id = movimentofinanceiro.categoriaId "
+					+ "WHERE movimentofinanceiro.usuarioId = ? AND categoria.tipoDeMovimento = 'DESPESA'");
+			
+			st.setInt(1, usuarioID);
+			
+			rs = st.executeQuery();
+			
+			
+			
+			while(rs.next()) {
+				
+				soma = rs.getDouble("SOMA");
+			}
+			
+			return soma;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 }

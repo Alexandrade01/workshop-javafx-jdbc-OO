@@ -38,14 +38,9 @@ public class UsuarioLoginController implements Initializable {
 	@FXML
 	private MenuItem menuItemCadastroUsuario;
 	
-	public Integer getIdUser() {
+	public Usuario getUser() {
 		
-		return user.getId();
-	}
-	
-	public String getNameUser() {
-		
-		return user.getNome();
+		return user;
 	}
 
 	@FXML

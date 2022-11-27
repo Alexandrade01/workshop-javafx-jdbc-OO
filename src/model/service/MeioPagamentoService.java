@@ -35,4 +35,16 @@ public class MeioPagamentoService {
 
 	}
 
+	public Double totalReceitasById(Integer usuarioID) {
+		
+		Double soma = dao.totalReceitasById(usuarioID);
+		return soma;
+
+	}
+
+	public Double totalDespesasById(Integer usuarioID) {
+		Double soma = dao.totalDespesasById(usuarioID);
+		return soma;
+	}
+
 }
