@@ -10,9 +10,9 @@ public class MeioPagamentoService {
 
 	private MeioPagamentoDao dao = DaoFactory.createMeioPagamentoDao();
 
-	public List<MeioPagamento> findAll() {
+	public List<MeioPagamento> findAllByUserId(Integer usuarioId) {
 
-		return dao.findAll();
+		return dao.findAllByUserId(usuarioId);
 	}
 
 	public List<MeioPagamento> findByUserId(Integer id) {

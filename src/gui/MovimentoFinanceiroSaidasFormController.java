@@ -293,7 +293,7 @@ public class MovimentoFinanceiroSaidasFormController implements Initializable {
 
 			throw new IllegalStateException("Categoria service é nulo ");
 		}
-		List<Categoria> listCategoria = categoriaService.findAllOuts();
+		List<Categoria> listCategoria = categoriaService.findAllOutsByUserId(usuarioId);
 		obsListCategoria = FXCollections.observableArrayList(listCategoria);
 		comboBoxCategoria.setItems(obsListCategoria);
 
@@ -301,8 +301,7 @@ public class MovimentoFinanceiroSaidasFormController implements Initializable {
 
 			throw new IllegalStateException("Meio pagamento service é nulo");
 		}
-		System.out.println("teste teste tesste");
-		List<MeioPagamento> list = meioPagamentoService.findAll();
+		List<MeioPagamento> list = meioPagamentoService.findAllByUserId(usuarioId);
 		obsListMeioPagamento = FXCollections.observableArrayList(list);
 		comboBoxMeioPagamento.setItems(obsListMeioPagamento);
 

@@ -136,13 +136,15 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 	}
 
 	@Override
-	public List<MeioPagamento> findAll() {
+	public List<MeioPagamento> findAllByUserId(Integer id) {
 		
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		try {
-			st = conn.prepareStatement("SELECT * FROM meiopagamento ORDER BY id");
+			st = conn.prepareStatement("SELECT * FROM meiopagamento WHERE usuarioId = ? ORDER BY id");
+			
+			st.setInt(1, id);
 			
 			rs = st.executeQuery();
 			

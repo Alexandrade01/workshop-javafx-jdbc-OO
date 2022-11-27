@@ -128,46 +128,18 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 			DB.closeResultSet(rs);
 		}
 	}
-
-	@Override
-	public List<Categoria> findAllDeposit() {
-
-		PreparedStatement st = null;
-		ResultSet rs = null;
-
-		try {
-			st = conn.prepareStatement("SELECT * FROM categoria WHERE tipoDeMovimento = 'RECEITA' ORDER BY id");
-
-			rs = st.executeQuery();
-
-			List<Categoria> list = new ArrayList<>();
-
-			while (rs.next()) {
-
-				Categoria obj = new Categoria();
-				obj = instantiateCategoria(rs);
-				list.add(obj);
-			}
-
-			return list;
-
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		} finally {
-			DB.closeStatement(st);
-			DB.closeResultSet(rs);
-		}
-	}
 	
 	@Override
-	public List<Categoria> findAllOut() {
+	public List<Categoria> findAllOutsByUserId(Integer id) {
 		
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		try {
-			st = conn.prepareStatement("SELECT * FROM categoria WHERE tipoDeMovimento = 'DESPESA' ORDER BY id");
+			st = conn.prepareStatement("SELECT * FROM categoria WHERE tipoDeMovimento = 'DESPESA' AND idUsuario = ? ORDER BY id");
 
+			st.setInt(1, id);
+			
 			rs = st.executeQuery();
 
 			List<Categoria> list = new ArrayList<>();
@@ -229,5 +201,37 @@ public class CategoriaDaoJDBC implements CategoriaDao {
 		obj.setTipoDeMovimento(TipoDeMovimento.valueOf(rs.getString("tipoDeMovimento")));
 		obj.setIdUsuario(rs.getInt("idUsuario"));
 		return obj;
+	}
+
+	@Override
+	public List<Categoria> findAllDepositByUserId(Integer usuarioId) {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			st = conn.prepareStatement("SELECT * FROM categoria WHERE tipoDeMovimento = 'RECEITA' AND  idUsuario = ? ORDER BY id");
+			
+			st.setInt(1, usuarioId);
+			
+			rs = st.executeQuery();
+
+			List<Categoria> list = new ArrayList<>();
+
+			while (rs.next()) {
+
+				Categoria obj = new Categoria();
+				obj = instantiateCategoria(rs);
+				list.add(obj);
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 }

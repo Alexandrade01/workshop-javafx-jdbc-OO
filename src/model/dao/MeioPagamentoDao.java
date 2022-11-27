@@ -10,7 +10,8 @@ public interface MeioPagamentoDao {
 	void update (MeioPagamento dao);
 	void deleteById(Integer id);
 	MeioPagamento findById(Integer id);
-	List<MeioPagamento> findAll();
+	List<MeioPagamento> findAllByUserId(Integer usuarioId);
 	List<MeioPagamento> findByUserId(Integer userId);
+
 
 }

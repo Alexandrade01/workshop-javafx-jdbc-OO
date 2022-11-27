@@ -11,14 +11,14 @@ public class CategoriaService {
 	// configuracao de banco de dados
 	private CategoriaDao dao = DaoFactory.createCategoriaDao();
 
-	public List<Categoria> findAllDeposit() {
+	public List<Categoria> findAllDepositByUserId(Integer usuarioId) {
 
-		return dao.findAllDeposit();
+		return dao.findAllDepositByUserId(usuarioId);
 	}
 
-	public List<Categoria> findAllOuts() {
+	public List<Categoria> findAllOutsByUserId(Integer usuarioId) {
 
-		return dao.findAllOut();
+		return dao.findAllOutsByUserId(usuarioId);
 	}
 
 	public void saveOrUpdate(Categoria obj) {

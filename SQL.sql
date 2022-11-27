@@ -74,6 +74,12 @@ INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.
 WHERE movimentofinanceiro.usuarioId = 1
 
 
+DELIMITER $$
+CREATE PROCEDURE aumentaCash(aumenta double, idmeiopagamento int)
+BEGIN
+   UPDATE meiopagamento SET saldo = (saldo + aumenta) where id = idmeiopagamento ;
+END $$
+DELIMITER ;
 
 
 
