@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
-import db.DbException;
 import db.DbIntegrityException;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
@@ -172,15 +171,6 @@ public class MovimentoFinanceiroListController implements Initializable, DataCha
 				controller.subscribeDataChangeListener(this);
 				controller.updateFormData();
 			}
-//			controller.setMovimentoPagamento(obj);
-//			controller.setServices(new MovimentoFinanceiroService(), new CategoriaService(),
-//					new MeioPagamentoService());
-//			controller.loadAssociatedObjects();
-//
-//			// adiciona um item na lista de listeners portanto sera chamado para atualizar a
-//			// lista
-//			controller.subscribeDataChangeListener(this);
-//			controller.updateFormData();
 
 			// quando quero abrir uma janela nova preciso instanciar um novo stage
 			Stage dialogStage = new Stage();

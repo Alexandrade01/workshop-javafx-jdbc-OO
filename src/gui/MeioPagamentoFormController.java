@@ -100,7 +100,7 @@ public class MeioPagamentoFormController implements Initializable {
 
 		catch (DbException e) {
 
-			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
+			Alerts.showAlert("Erro ! ", null, "Erro ao salvar o meio de pagamento", AlertType.ERROR);
 		}
 
 	}
@@ -180,7 +180,7 @@ public class MeioPagamentoFormController implements Initializable {
 
 		Locale.setDefault(Locale.US);
 		txtSaldo.setText(String.format("%.2f", entity.getSaldo()));
-		txtUsuarioId.setText(String.valueOf(entity.getUsuarioId()));
+		txtUsuarioId.setText(String.valueOf(usuarioId));
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {

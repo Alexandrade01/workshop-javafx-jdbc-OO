@@ -3,12 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="320.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="404.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label prefHeight="36.0" prefWidth="96.0" text="About">
          <font>
@@ -21,17 +23,31 @@
             <Point3D x="1.0" y="1.0" z="1.0" />
          </rotationAxis>
       </Label>
-      <Label prefHeight="25.0" prefWidth="221.0" text="Projeto Fesa Wallet">
+      <Label prefHeight="147.0" prefWidth="222.0" text="Projeto Fesa Wallet">
          <padding>
             <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="437.0" pickOnBounds="true" preserveRatio="true">
+      <TextArea editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" text="ABRÃO ASTÉRIO JUNIOR (081200035)​&#10;&#10;ALEXANDRE BEZERRA DE ANDRADE (081200034)​&#10;&#10;CAYO VINICIUS NEVES MAGALHÃES (081200050)​&#10;&#10;DANIEL SANTOS DE SOUSA (081200021)​&#10;&#10;FRANCISCO TOMMASI SILVEIRA (081200018)">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+         <effect>
+            <SepiaTone level="0.76" />
+         </effect>
+      </TextArea>
+      <ImageView fitHeight="125.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../imgs/carteira.png" />
          </image>
          <VBox.margin>
-            <Insets left="150.0" />
+            <Insets left="300.0" />
          </VBox.margin>
       </ImageView>
    </children>

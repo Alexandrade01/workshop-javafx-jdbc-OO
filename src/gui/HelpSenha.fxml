@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="88.0" layoutY="78.0" text="testeeee" />
+      <TextArea layoutX="22.0" layoutY="150.0" prefHeight="150.0" prefWidth="291.0" text="- A senha deverá conter : &#10;- 1 Letra maiúscula&#10;- 1 Letra minuscula&#10;- 1 carácter especial &#10;">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </TextArea>
+      <ImageView fitHeight="118.0" fitWidth="112.0" layoutX="112.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../imgs/alert.png" />
+         </image>
+      </ImageView>
    </children>
-   <effect>
-      <Lighting bumpInput="$null">
-         <light>
-            <Light.Distant>
-               <color>
-                  <Color red="0.6266666650772095" green="0.7113216519355774" blue="0.9894737005233765" />
-               </color>
-            </Light.Distant>
-         </light>
-      </Lighting>
-   </effect>
 </Pane>
