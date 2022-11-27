@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import application.Main;
-import db.DbException;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;

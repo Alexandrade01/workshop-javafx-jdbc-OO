@@ -282,4 +282,34 @@ public class MeioPagamentoDaoJDBC implements MeioPagamentoDao {
 		}
 	}
 
+	@Override
+	public Double totalSaldoById(Integer usuarioID) {
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		Double soma = null;
+		
+		try {
+			st = conn.prepareStatement("SELECT SUM(saldo) AS SOMA FROM meiopagamento WHERE usuarioId = ?");
+			
+			st.setInt(1, usuarioID);
+			
+			rs = st.executeQuery();		
+			
+			while(rs.next()) {
+				
+				soma = rs.getDouble("SOMA");
+			}
+			
+			return soma;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
 }

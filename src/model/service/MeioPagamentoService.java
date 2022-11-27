@@ -47,4 +47,9 @@ public class MeioPagamentoService {
 		return soma;
 	}
 
+	public Double meuSaldoById(Integer usuarioID) {
+		Double soma = dao.totalSaldoById(usuarioID);
+		return soma;
+	}
+
 }

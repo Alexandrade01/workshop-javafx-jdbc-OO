@@ -14,6 +14,7 @@ public interface MeioPagamentoDao {
 	List<MeioPagamento> findByUserId(Integer userId);
 	Double totalReceitasById(Integer usuarioID);
 	Double totalDespesasById(Integer usuarioID);
+	Double totalSaldoById(Integer usuarioID);
 
 
 }

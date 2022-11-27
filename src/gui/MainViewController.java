@@ -7,16 +7,12 @@ import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -27,11 +23,7 @@ import model.service.MovimentoFinanceiroService;
 public class MainViewController implements Initializable {
 
 	@FXML
-	private MenuItem menuItemSeller;
-	@FXML
-	private MenuItem menuItemDepartment;
-	@FXML
-	private MenuItem menuItemAbout;
+	private MenuItem menuItemMeuPerfil;
 	@FXML
 	private MenuItem menuItemCategoria;
 	@FXML
@@ -39,16 +31,19 @@ public class MainViewController implements Initializable {
 	@FXML
 	private MenuItem menuItemMovimentoFinanceiro;
 	@FXML
-	private Label textoNome;
-	@FXML
-	private PieChart chartMinhasCarteiras;
+	private MenuItem menuItemAbout;
 	
-	Double totalreceita = Double.valueOf(0);
-	Double totaldespesa = Double.valueOf(0);
+
 
 	@FXML
 	public void onMenuItemAboutAction() {
 		loadView("/gui/AboutView.fxml", x -> {
+		});
+	}
+	
+	@FXML
+	public void onMenuItemMeuPerfilAction() {
+		loadView("/gui/MeuPerfilView.fxml", x -> {
 		});
 	}
 	
@@ -85,13 +80,7 @@ public class MainViewController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		
-		textoNome.setText(Main.getUsuarioName().toUpperCase());
 		
-		MeioPagamentoService service = new MeioPagamentoService();
-		totalreceita = service.totalReceitasById(Main.getUsuarioID());
-		totaldespesa = service.totalDespesasById(Main.getUsuarioID());
-		
-		createPieChart();
 
 	}
 
@@ -126,18 +115,6 @@ public class MainViewController implements Initializable {
 
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
-	}
-	
-	private void createPieChart() {
-		
-		ObservableList<PieChart.Data> pieChartData
-			= FXCollections.observableArrayList(
-					new PieChart.Data("RECEITAS R$" + String.format("%.2f", totalreceita),totalreceita),
-					new PieChart.Data("DESPESAS R$" + String.format("%.2f", totaldespesa),totaldespesa)
-					);
-		chartMinhasCarteiras.setData(pieChartData);
-		chartMinhasCarteiras.setTitle("Meu fluxo de Caixa");
-		
 	}
 
 }
