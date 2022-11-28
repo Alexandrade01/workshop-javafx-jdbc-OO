@@ -1,6 +1,7 @@
 create database fesawallet;
 use fesawallet;
 
+#TABELAS
 create table usuario (
 id int(11) NOT NULL AUTO_INCREMENT,
 nome varchar(100) NOT NULL,
@@ -43,14 +44,31 @@ FOREIGN KEY (categoriaId) REFERENCES categoria (id),
 FOREIGN KEY (meiopagamentoId) REFERENCES meiopagamento (id),
 FOREIGN  KEY (usuarioId) REFERENCES usuario (id)
 );
+
+#PROCEDURES
+DELIMITER $$
+CREATE PROCEDURE aumentaCash(aumenta double, idmeiopagamento int)
+BEGIN
+   UPDATE meiopagamento SET saldo = (saldo + aumenta) where id = idmeiopagamento ;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE diminuiCash(diminui double, idmeiopagamento int)
+BEGIN
+   UPDATE meiopagamento SET saldo = (saldo - diminui) where id = idmeiopagamento ;
+END $$
+DELIMITER ;
+
+#DMLS
+
 insert into movimentofinanceiro (descricao, dataTransacao, valor, categoriaId, meiopagamentoId, usuarioId  ) 
 VALUES ('teste','1998-04-21 00:00:00',2020,1,1,1);
-
 
 INSERT INTO usuario (nome, sobrenome, email, senha)
 VALUES ('Ale','Andrade','ale90@hotmail.com','senha'),
 ('ze1','alves1','ale90@hotmail.com','senha');
-
 
 insert into categoria (descricao, tipoDeMovimento, idUsuario)
 VALUES ('ROUPAS','DESPESA',1), ('SALARIO','RECEITA',1);
@@ -74,22 +92,15 @@ INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.
 WHERE movimentofinanceiro.usuarioId = 1
 
 
-DELIMITER $$
-CREATE PROCEDURE aumentaCash(aumenta double, idmeiopagamento int)
-BEGIN
-   UPDATE meiopagamento SET saldo = (saldo + aumenta) where id = idmeiopagamento ;
-END $$
-DELIMITER ;
+select * from usuario
+SELECT * FROM categoria WHERE tipoDeMovimento = 'DESPESA' AND idUsuario = 7 ORDER BY id
+SELECT * FROM meiopagamento WHERE usuarioId = 7 ORDER BY id
+CALL diminuiCash(500,2);
 
-
-
-DELIMITER $$
-CREATE PROCEDURE diminuiCash(diminui double, idmeiopagamento int)
-BEGIN
-   UPDATE meiopagamento SET saldo = (saldo - diminui) where id = idmeiopagamento ;
-END $$
-DELIMITER ;
+select * from movimentofinanceiro
+SELECT SUM(movimentofinanceiro.valor) from movimentofinanceiro 
+INNER JOIN categoria ON categoria.id = movimentofinanceiro.categoriaId
+WHERE movimentofinanceiro.usuarioId = 1 AND categoria.tipoDeMovimento = 'DESPESA'
 
 select * from meiopagamento
-
-CALL diminuiCash(500,2);
+SELECT SUM(saldo) FROM meiopagamento WHERE usuarioId = 1

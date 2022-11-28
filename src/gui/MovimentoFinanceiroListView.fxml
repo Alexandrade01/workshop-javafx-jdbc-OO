@@ -14,7 +14,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="405.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MovimentoFinanceiroListController">
+<VBox prefHeight="405.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MovimentoFinanceiroListController">
    <children>
       <Label prefHeight="24.0" prefWidth="242.0" text="Registros de movimentos financeiros">
          <font>
@@ -40,7 +40,7 @@
             </Button>
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewMovimentoFinanceiro" prefHeight="340.0" prefWidth="534.0">
+      <TableView fx:id="tableViewMovimentoFinanceiro" prefHeight="340.0" prefWidth="614.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="90.0" text="ID" />
             <TableColumn fx:id="tableColumnData" prefWidth="90.0" text="Data" />
@@ -58,7 +58,7 @@
                <light>
                   <Light.Distant>
                      <color>
-                        <Color red="0.42916178703308105" green="0.8100428581237793" blue="0.9052631855010986" />
+                        <Color red="0.8509804010391235" green="0.9686274528503418" blue="0.9882352948188782" />
                      </color>
                   </Light.Distant>
                </light>

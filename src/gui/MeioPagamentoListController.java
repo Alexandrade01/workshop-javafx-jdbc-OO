@@ -174,7 +174,7 @@ public class MeioPagamentoListController implements Initializable, DataChangeLis
 			Stage dialogStage = new Stage();
 
 			// setando o titulo do stage
-			dialogStage.setTitle("Cadastre suas categorias de entrada ou saida");
+			dialogStage.setTitle("Cadastre seus meios de pagamento !");
 			//
 			dialogStage.setScene(new Scene(pane));
 			// propriedade quem diz se a janela PODE OU NAO ser redimensionada

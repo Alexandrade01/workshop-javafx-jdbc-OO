@@ -6,11 +6,15 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="405.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CategoriaListController">
+<VBox prefHeight="405.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CategoriaListController">
    <children>
       <Label prefHeight="24.0" prefWidth="162.0" text="Registros de categoria">
          <font>
@@ -39,6 +43,20 @@
             <TableColumn fx:id="tableColumnEdit" prefWidth="84.79998779296875" />
             <TableColumn fx:id="tableColumnRemove" prefWidth="68.800048828125" />
         </columns>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant>
+                     <color>
+                        <Color red="0.8509804010391235" green="0.9686274528503418" blue="0.9882352948188782" />
+                     </color>
+                  </Light.Distant>
+               </light>
+            </Lighting>
+         </effect>
       </TableView>
    </children>
 </VBox>

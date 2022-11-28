@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.SepiaTone?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="405.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MeioPagamentoListController">
+<VBox prefHeight="405.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MeioPagamentoListController">
    <children>
       <Label prefHeight="24.0" prefWidth="210.0" text="Registros do meios de pagamento">
          <font>
@@ -46,12 +47,12 @@
          <effect>
             <Lighting>
                <bumpInput>
-                  <Shadow />
+                  <Bloom />
                </bumpInput>
                <light>
                   <Light.Distant>
                      <color>
-                        <Color red="0.42916178703308105" green="0.8100428581237793" blue="0.9052631855010986" />
+                        <Color red="0.8509804010391235" green="0.9686274528503418" blue="0.9882352948188782" />
                      </color>
                   </Light.Distant>
                </light>
