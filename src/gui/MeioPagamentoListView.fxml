@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="405.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MeioPagamentoListController">
+<VBox prefHeight="405.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MeioPagamentoListController">
    <children>
       <Label prefHeight="24.0" prefWidth="210.0" text="Registros do meios de pagamento">
          <font>

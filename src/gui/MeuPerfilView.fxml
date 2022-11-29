@@ -3,8 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -54,11 +53,6 @@
                   <Font name="Arial Italic" size="28.0" />
                </font>
             </Text>
-            <ImageView fitHeight="103.0" fitWidth="124.0" layoutX="446.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../imgs/money.png" />
-               </image>
-            </ImageView>
             <Label fx:id="textSaldo" layoutX="375.0" layoutY="-3.0" prefHeight="60.0" prefWidth="223.0" text="ttt">
                <font>
                   <Font name="Broadway" size="34.0" />
@@ -88,4 +82,7 @@
          </VBox.margin>
       </PieChart>
    </children>
+   <effect>
+      <SepiaTone level="0.73" />
+   </effect>
 </VBox>

@@ -85,22 +85,27 @@ INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.
 WHERE movimentofinanceiro.id = 1;
 
 select * from categoria where tipoDeMovimento = 'RECEITA' order by id;
+
 SELECT movimentofinanceiro.* , categoria.descricao as CATNAME , meiopagamento.descricao as MPNAME 
 FROM movimentofinanceiro 
 INNER JOIN categoria ON movimentofinanceiro.categoriaId = categoria.id 
 INNER JOIN meiopagamento ON movimentofinanceiro.meiopagamentoId = meiopagamento.id 
 WHERE movimentofinanceiro.usuarioId = 1
 
-
 select * from usuario
+
 SELECT * FROM categoria WHERE tipoDeMovimento = 'DESPESA' AND idUsuario = 7 ORDER BY id
+
 SELECT * FROM meiopagamento WHERE usuarioId = 7 ORDER BY id
+
 CALL diminuiCash(500,2);
 
 select * from movimentofinanceiro
+
 SELECT SUM(movimentofinanceiro.valor) from movimentofinanceiro 
 INNER JOIN categoria ON categoria.id = movimentofinanceiro.categoriaId
 WHERE movimentofinanceiro.usuarioId = 1 AND categoria.tipoDeMovimento = 'DESPESA'
 
 select * from meiopagamento
+
 SELECT SUM(saldo) FROM meiopagamento WHERE usuarioId = 1

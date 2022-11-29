@@ -14,18 +14,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UsuarioLoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UsuarioLoginController">
    <children>
       <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="250.0">
         <menus>
           <Menu fx:id="menuItemCadastroUsuario" mnemonicParsing="false" text="Cadastre-se">
             <items>
               <MenuItem fx:id="btCadastroUsuario" mnemonicParsing="false" onAction="#onBtNewUser" text="Individual" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Sobre">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
