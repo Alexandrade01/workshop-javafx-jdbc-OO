@@ -139,10 +139,15 @@ public class MovimentoFinanceiroSaidasFormController implements Initializable {
 		} catch (ValidationException e) {
 
 			setErrorMessages(e.getErrors());
-		} catch (RuntimeException e) {
+		} catch (DbException e) {
 
-			Alerts.showAlert("Erro !", null, "Erro ao salvar a movimentação !", AlertType.ERROR);
+			Alerts.showAlert("Erro !", null, "Não é permitido saldo negativo ! Organize suas finanças !", AlertType.ERROR);
 		}
+		catch (RuntimeException e) {
+
+			Alerts.showAlert("Erro !", null, "Erro ao cadstrar a movimentação !", AlertType.ERROR);
+		}
+		
 
 	}
 
